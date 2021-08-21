@@ -1,0 +1,20 @@
+{
+    "name": "com.handcraftedgames.agentcontroller",
+    "version": "0.0.1",
+    "displayName": "Agent Controller",
+    "description": "An abstraction layer for controlling various characters. Useful to generalize controlling for higher abstraction layers (eg. AI)",
+    "unity": "2018.4",
+    "keywords": [
+        "HandcraftedGames",
+        "AgentController",
+        "CharacterController",
+        "Agent",
+        "Character",
+        "Controller"
+    ],
+    "author": {
+        "name": "Pawel Sulik",
+        "email": "pawel.sulik@handcrafted.games",
+        "url": "https://handcrafted.games"
+    }
+}
