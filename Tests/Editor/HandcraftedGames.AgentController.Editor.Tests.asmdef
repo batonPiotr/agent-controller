@@ -1,0 +1,20 @@
+{
+    "name": "HandcraftedGames.AgentController.Editor.Tests",
+    "rootNamespace": "",
+    "references": [
+        "Unity.PerformanceTesting",
+        "UnityEditor.TestRunner",
+        "HandcraftedGames.AgentController"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

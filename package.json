@@ -16,5 +16,20 @@
         "name": "Pawel Sulik",
         "email": "pawel.sulik@handcrafted.games",
         "url": "https://handcrafted.games"
-    }
+    },
+    "samples": [
+        {
+            "displayName": "Shared Assets",
+            "description": "Shared assets for examples.",
+            "path": "Samples/SharedAssets"
+        },
+        {
+            "displayName": "Basic Setup",
+            "description": "Scene with basic setup with some custom abilities.",
+            "path": "Samples/BasicSetup"
+        }
+    ],
+    "testables": [
+      "com.unity.test-framework.performance"
+    ]
 }
