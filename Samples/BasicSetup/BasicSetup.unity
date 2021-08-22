@@ -1017,6 +1017,8 @@ GameObject:
   - component: {fileID: 444190021}
   - component: {fileID: 444190022}
   - component: {fileID: 444190023}
+  - component: {fileID: 444190025}
+  - component: {fileID: 444190024}
   m_Layer: 0
   m_Name: RigidbodyAgent
   m_TagString: Untagged
@@ -1065,7 +1067,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 444190020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c87f5c4f1ad454aada0ee9910cf96a40, type: 3}
+  m_Script: {fileID: 11500000, guid: b25e40ac6d8b2448298b4de9d5775984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &444190024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444190020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7898e9fb6df704876b1abbe6e91d2044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 444190023}
+--- !u!114 &444190025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444190020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a03e257074f24953bb8b398c1d3b55f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &526318214
