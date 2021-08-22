@@ -29,7 +29,7 @@
             "path": "Samples/BasicSetup"
         }
     ],
-    "testables": [
-      "com.unity.test-framework.performance"
-    ]
+    "dependencies": {
+      "com.unity.test-framework.performance": "2.6.0-preview"
+    }
 }
