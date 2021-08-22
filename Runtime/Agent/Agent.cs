@@ -6,15 +6,24 @@ namespace HandcraftedGames.AgentController
     
     public class Agent : IAgent
     {
-        public GameObject GameObject => throw new NotImplementedException();
+        private GameObject gameObject;
+        public GameObject GameObject => gameObject;
 
-        private Dictionary<Type, IAbility> Abilities = new Dictionary<Type, IAbility>();
+        private List<IAbility> Abilities = new List<IAbility>();
+
+        private List<IFixedUpdate> FixedUpdateAbilities = new List<IFixedUpdate>();
+        private List<IUpdate> UpdateAbilities = new List<IUpdate>();
 
         public event Action<IAgent> OnDestroy;
 
-        public bool AddAbility<T>(T ability) where T: class, IAbility
+        public Agent(GameObject gameObject)
         {
-            if(Abilities.ContainsKey(ability.GetType()))
+            this.gameObject = gameObject;
+        }
+
+        public bool AddAbility(IAbility ability, bool enableOnAdd = true)
+        {
+            if(Abilities.Contains(ability))
             {
                 return false;
             }
@@ -22,27 +31,31 @@ namespace HandcraftedGames.AgentController
             {
                 return false;
             }
-            Abilities[ability.GetType()] = ability;
+            Abilities.Add(ability);
+            if(ability is IUpdate)
+                UpdateAbilities.Add((IUpdate)ability);
+            if(ability is IFixedUpdate)
+                FixedUpdateAbilities.Add((IFixedUpdate)ability);
+            ability.Enable();
             return true;
         }
 
         public T GetAbility<T>() where T : class, IAbility
         {
             var type = typeof(T);
-            if(Abilities.ContainsKey(type))
-            {
-                return Abilities[type] as T;
-            }
+            foreach(var ability in Abilities)
+                if(ability is T)
+                    return (T)ability;
             return null;
         }
 
         public bool ActivateAbility(IAbility ability)
         {
-            if(!Abilities.ContainsValue(ability))
+            if(!Abilities.Contains(ability))
                 return false;
 
             // Check if some running ability wants to prevent activating this ability
-            foreach(var a in Abilities.Values)
+            foreach(var a in Abilities)
             {
                 if(!a.IsActive)
                     continue;
@@ -55,7 +68,7 @@ namespace HandcraftedGames.AgentController
                 return false;
 
             // Check if this new activated ability would like to stop some already running ability
-            foreach(var a in Abilities.Values)
+            foreach(var a in Abilities)
             {
                 if(!a.IsActive)
                     continue;
@@ -63,6 +76,30 @@ namespace HandcraftedGames.AgentController
                     a.Stop();
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            foreach(var ability in Abilities)
+                ability.Dispose();
+        }
+
+        public void FixedUpdate()
+        {
+            foreach(var fixedUpdate in FixedUpdateAbilities)
+            {
+                if(((IAbility)fixedUpdate).Enabled)
+                    fixedUpdate.FixedUpdate();
+            }
+        }
+
+        public void Update()
+        {
+            foreach(var update in UpdateAbilities)
+            {
+                if(((IAbility)update).Enabled)
+                    update.Update();
+            }
         }
     }
 }

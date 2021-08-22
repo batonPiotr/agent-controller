@@ -1,6 +1,7 @@
 namespace HandcraftedGames.AgentController
 {
-    public interface IAbility
+    using System;
+    public interface IAbility: IDisposable
     {
         /// <summary>
         /// Agent this ability is added to.
@@ -48,9 +49,11 @@ namespace HandcraftedGames.AgentController
         bool TryToAdd(IAgent agent);
 
         /// <summary>
-        /// Called if someone wants to activate this ability through agent.
+        /// Called if someone wants to activate this ability through agent. This ability has to meet following minimal requirements in order to be activated:
+        /// - It must be enabled. All abilities are disabled upon creation
+        /// - It must not be activated.
+        /// - It must be assigned to an agent.
         /// </summary>
-        /// <returns></returns>
         bool TryToActivate();
 
         void Stop();

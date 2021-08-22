@@ -1,7 +1,7 @@
 namespace HandcraftedGames.AgentController
 {
     using UnityEngine;
-    public interface IMoveAbility
+    public interface IMoveAbility: IAbility
     {
         void SetInputVector(Vector2 input);
     }
