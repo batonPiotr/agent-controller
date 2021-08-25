@@ -1,4 +1,4 @@
-namespace HandcraftedGames.AgentController
+namespace HandcraftedGames.AgentController.Abilities.Rigidbody
 {
     using UnityEngine;
     public class RigidbodyRotation : Ability, IRotateAbility, IFixedUpdate

@@ -3,7 +3,8 @@ namespace HandcraftedGames.AgentController
     using System;
     using UnityEngine;
     using System.Collections.Generic;
-    
+    using HandcraftedGames.AgentController.Abilities;
+
     public class Agent : IAgent
     {
         private GameObject gameObject;

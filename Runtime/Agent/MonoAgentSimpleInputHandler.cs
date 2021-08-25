@@ -1,5 +1,6 @@
 namespace HandcraftedGames.AgentController
 {
+    using HandcraftedGames.AgentController.Abilities;
     using UnityEngine;
 
     public class MonoAgentSimpleInputHandler: MonoBehaviour
@@ -10,10 +11,10 @@ namespace HandcraftedGames.AgentController
         public IRotateAbility rotateAbility;
         private void Update()
         {
-            if (moveAbility == null || rotateAbility == null)
+            if (moveAbility == null /*|| rotateAbility == null*/)
             {
                 moveAbility = target.agent.GetAbility<IMoveAbility>();
-                rotateAbility = target.agent.GetAbility<IRotateAbility>();
+                // rotateAbility = target.agent.GetAbility<IRotateAbility>();
             }
             else
             {
@@ -29,13 +30,13 @@ namespace HandcraftedGames.AgentController
                 if (Input.GetKey(KeyCode.LeftArrow))
                     inputVector += new Vector2(-1, 0);
 
-                if (Input.GetKey(KeyCode.Q))
-                    rotationInput += -1.0f;
-                if (Input.GetKey(KeyCode.E))
-                    rotationInput += 1.0f;
+                // if (Input.GetKey(KeyCode.Q))
+                //     rotationInput += -1.0f;
+                // if (Input.GetKey(KeyCode.E))
+                //     rotationInput += 1.0f;
 
                 moveAbility.SetInputVector(inputVector);
-                rotateAbility.SetRotationInput(rotationInput);
+                // rotateAbility.SetRotationInput(rotationInput);
             }
         }
     }
