@@ -1,10 +1,14 @@
 {
-    "name": "HandcraftedGames.AgentController",
+    "name": "HandcraftedGames.AgentController.Tests",
     "rootNamespace": "",
     "references": [
-        "Unity.InputSystem"
+        "HandcraftedGames.AgentController"
     ],
-    "includePlatforms": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

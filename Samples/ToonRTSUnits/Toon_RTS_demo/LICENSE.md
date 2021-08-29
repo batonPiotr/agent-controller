@@ -1,0 +1,2 @@
+All assets included in this folder are downloaded from https://assetstore.unity.com/packages/3d/characters/toon-rts-units-demo-69687
+I'm not the author of these assets. These are hosted for free in Unity Asset Store.

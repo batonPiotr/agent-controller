@@ -1,6 +1,7 @@
 namespace HandcraftedGames.AgentController
 {
     using System;
+    using HandcraftedGames.AgentController.Abilities;
     using UnityEngine;
     public interface IAgent: IDisposable, IFixedUpdate, IUpdate
     {

@@ -1,3 +1,4 @@
+using HandcraftedGames.AgentController.Abilities;
 using NUnit.Framework;
 using Unity.PerformanceTesting;
 

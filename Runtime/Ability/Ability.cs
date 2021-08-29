@@ -1,4 +1,4 @@
-namespace HandcraftedGames.AgentController
+namespace HandcraftedGames.AgentController.Abilities
 {
     public abstract class Ability : IAbility
     {
