@@ -16,6 +16,9 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         private int sidewardParameterHash;
         private int isMovingHash;
 
+        private float speedMultiplier = 1.0f;
+        public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
+
         public MoveAbility(
             string forwardParameterName, float forwardMinValue, float forwardMaxValue,
             string sidewardParameterName, float sidewardMinValue, float sidewardMaxValue,
@@ -49,9 +52,9 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             }
 
             // if(isForwardMovement)
-                animator.SetFloat(forwardParameterHash, Mathf.Lerp(forwardMinValue, forwardMaxValue, inputNormalized.y));
+                animator.SetFloat(forwardParameterHash, Mathf.Lerp(forwardMinValue * speedMultiplier, forwardMaxValue * speedMultiplier, inputNormalized.y));
             // if(isSidewardMovement)
-                animator.SetFloat(sidewardParameterHash, Mathf.Lerp(sidewardMinValue, sidewardMaxValue, inputNormalized.x));
+                animator.SetFloat(sidewardParameterHash, Mathf.Lerp(sidewardMinValue * speedMultiplier, sidewardMaxValue * speedMultiplier, inputNormalized.x));
             animator.SetBool(isMovingHash, input.sqrMagnitude > 0.001);
         }
 

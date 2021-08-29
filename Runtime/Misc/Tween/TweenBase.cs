@@ -13,6 +13,11 @@ namespace HandcraftedGames.Utils
         public bool IsRunning => runningTask != null;
         private float timer = 0.0f;
 
+        public TweenBase(T initialValue)
+        {
+            value = initialValue;
+        }
+
         public void Start(T startValue, T endValue, float duration)
         {
             if(IsRunning)

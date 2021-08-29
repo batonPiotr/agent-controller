@@ -6,6 +6,9 @@ namespace HandcraftedGames.AgentController.Abilities.Rigidbody
         private Vector2 inputVector;
         private Rigidbody rigidbody;
 
+        private float speedMultiplier = 1.0f;
+        public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
+
         protected override bool ValidateAgent(IAgent agent)
         {
             rigidbody = agent.GameObject.GetComponent<Rigidbody>();
@@ -25,7 +28,7 @@ namespace HandcraftedGames.AgentController.Abilities.Rigidbody
             {
                 return;
             }
-            rigidbody.AddRelativeForce(new Vector3(inputVector.x, 0.0f, inputVector.y) * 100.0f);
+            rigidbody.AddRelativeForce(new Vector3(inputVector.x, 0.0f, inputVector.y) * 100.0f * speedMultiplier);
             inputVector = Vector2.zero;
             
             if(rigidbody.velocity.sqrMagnitude < 0.001f)
