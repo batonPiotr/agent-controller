@@ -1,6 +1,7 @@
 
 namespace HandcraftedGames.AgentController
 {
+    using System.Collections;
     using UnityEngine;
 
     public class MonoAgent : MonoBehaviour

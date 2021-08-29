@@ -15,7 +15,7 @@ namespace HandcraftedGames.AgentController.Samples.Shared
         {
             monoAgent = GetComponent<MonoAgent>();
 
-            monoAgent.agent.AddAbility(new MoveAbility("moveForward", -2.0f, 2.0f, "moveSideward", -2.0f, 2.0f));
+            monoAgent.agent.AddAbility(new MoveAbility("moveForward", -2.0f, 2.0f, "moveSideward", -2.0f, 2.0f, "isMoving"));
             // monoAgent.agent.AddAbility(new RigidbodyRotation());
         }
     }

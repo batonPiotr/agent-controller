@@ -14,10 +14,13 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         private float sidewardMinValue;
         private float sidewardMaxValue;
         private int sidewardParameterHash;
+        private int isMovingHash;
 
         public MoveAbility(
             string forwardParameterName, float forwardMinValue, float forwardMaxValue,
-            string sidewardParameterName, float sidewardMinValue, float sidewardMaxValue)
+            string sidewardParameterName, float sidewardMinValue, float sidewardMaxValue,
+            string isMovingParameter
+        )
         {
             this.forwardParameterName = forwardParameterName;
             this.forwardMinValue = forwardMinValue;
@@ -28,6 +31,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             this.sidewardMinValue = sidewardMinValue;
             this.sidewardMaxValue = sidewardMaxValue;
             sidewardParameterHash = Animator.StringToHash(sidewardParameterName);
+            isMovingHash = Animator.StringToHash(isMovingParameter);
         }
 
         public void SetInputVector(Vector2 input)
@@ -48,6 +52,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
                 animator.SetFloat(forwardParameterHash, Mathf.Lerp(forwardMinValue, forwardMaxValue, inputNormalized.y));
             // if(isSidewardMovement)
                 animator.SetFloat(sidewardParameterHash, Mathf.Lerp(sidewardMinValue, sidewardMaxValue, inputNormalized.x));
+            animator.SetBool(isMovingHash, input.sqrMagnitude > 0.001);
         }
 
         protected override bool ValidateAgent(IAgent agent)
