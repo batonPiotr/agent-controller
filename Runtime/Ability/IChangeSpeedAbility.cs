@@ -1,6 +1,6 @@
 namespace HandcraftedGames.AgentController.Abilities
 {
-    public interface IChangeSpeed: IAbility
+    public interface IChangeSpeedAbility: IAbility
     {
         void SetSpeedMultiplier(float multiplier);
     }

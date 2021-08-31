@@ -1,7 +1,7 @@
 namespace HandcraftedGames.AgentController.Abilities.Animator
 {
     using UnityEngine;
-    public class ChangeSpeed : Ability, IChangeSpeed
+    public class ChangeSpeed : Ability, IChangeSpeedAbility
     {
         private Animator animator;
         private IMoveAbility moveAbility;
