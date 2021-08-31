@@ -2095,7 +2095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593821739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1937542, y: 2.7600038, z: -6.6105094}
+  m_LocalPosition: {x: -9.85, y: 2.7600038, z: -17.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2374,7 +2374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 492893867428001417, guid: 70df8b624375e44d486fa0f21cdf8203, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: 492893867428001417, guid: 70df8b624375e44d486fa0f21cdf8203, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2688,7 +2688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140062808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1937542, y: 2.7600038, z: -6.6105094}
+  m_LocalPosition: {x: -9.85, y: 2.7600038, z: -17.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1716485296}
@@ -2708,7 +2708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3765622450394134110, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.1937542
+      value: -9.85
       objectReference: {fileID: 0}
     - target: {fileID: 3765622450394134110, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2716,7 +2716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3765622450394134110, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.8294907
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 3765622450394134110, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2749,6 +2749,10 @@ PrefabInstance:
     - target: {fileID: 3765622450394360382, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: m_Name
       value: Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935102306721462539, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}

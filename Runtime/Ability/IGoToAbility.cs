@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IGoToAbility : MonoBehaviour
+namespace HandcraftedGames.AgentController.Abilities
 {
-    // Start is called before the first frame update
-    void Start()
+    using UnityEngine;
+    public interface IGoToAbility: IAbility
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void GoTo(Vector3 target);
     }
 }

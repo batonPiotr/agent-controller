@@ -47,10 +47,21 @@ namespace HandcraftedGames.AgentController.Abilities
         }
 
         protected abstract bool ValidateAgent(IAgent agent);
+        protected virtual bool TryToActivateInternal() => true;
 
-        public virtual bool TryToActivate() => !IsActive && Enabled && Agent != null;
+        public bool TryToActivate()
+        {
+            if(!IsActive && Enabled && Agent != null && TryToActivateInternal())
+            {
+                _IsActive = true;
+                return true;
+            }
+            return false;
+        }
 
-        public virtual void Stop() { }
+        public virtual void Stop() {
+            _IsActive = false;
+        }
 
         public virtual void Dispose() {}
     }
