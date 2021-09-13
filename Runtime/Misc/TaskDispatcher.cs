@@ -56,18 +56,22 @@ namespace HandcraftedGames.Utils
         /// </summary>
         /// <param name="action">Action to repeat until it returns false</param>
         /// <param name="delay">Delay in realtime in seconds</param>
+        /// <param name="interval">Interval between task. Defaults to 0.0 which means it runs every frame.</param>
         /// <returns>task object for cancelling</returns>
-        public object Schedule(System.Func<bool> action, float delay)
+        public object Schedule(System.Func<bool> action, float delay, float interval = 0.0f)
         {
-            return StartCoroutine(ScheduleAction(action, delay));
+            return StartCoroutine(ScheduleAction(action, delay, interval));
         }
 
-        private IEnumerator ScheduleAction(System.Func<bool> action, float delay)
+        private IEnumerator ScheduleAction(System.Func<bool> action, float delay, float interval)
         {
             yield return new WaitForSecondsRealtime(delay);
             while(action())
             {
-                yield return null;
+                if(interval > 0)
+                    yield return new WaitForSecondsRealtime(interval);
+                else
+                    yield return null;
             }
         }
     }

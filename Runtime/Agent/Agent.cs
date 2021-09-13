@@ -60,6 +60,9 @@ namespace HandcraftedGames.AgentController
             if(!Abilities.Contains(ability))
                 return false;
 
+            if(!ability.Enabled)
+                return false;
+
             // Check if some running ability wants to prevent activating this ability
             foreach(var a in Abilities)
             {

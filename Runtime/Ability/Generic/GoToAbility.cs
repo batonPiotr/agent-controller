@@ -3,15 +3,13 @@ namespace HandcraftedGames.AgentController.Abilities
     using System;
     using UnityEngine;
     using UnityEngine.AI;
-    [Serializable]
 
+    [Serializable]
     public class GoToAbility : Ability, IGoToAbility, IUpdate
     {
         public override string Name => "Go To Ability";
         private IMoveAbility moveAbility;
         private NavMeshAgent navMeshAgent;
-        private UnityEngine.Animator animator;
-
 
         Vector2 smoothDeltaPosition = Vector2.zero;
         Vector2 velocity = Vector2.zero;
@@ -20,7 +18,6 @@ namespace HandcraftedGames.AgentController.Abilities
         {
             moveAbility = agent.GetAbility<IMoveAbility>();
             navMeshAgent = agent.GameObject.GetComponent<NavMeshAgent>();
-            animator = agent.GameObject.GetComponent<UnityEngine.Animator>();
 
             if(navMeshAgent == null)
                 Debug.LogError("Couldn't add GoToAbility: NavMeshAgent not found!");
@@ -36,7 +33,9 @@ namespace HandcraftedGames.AgentController.Abilities
         }
         public void GoTo(Vector3 target)
         {
-            Debug.Log("Trying to activate the ability: "+ Agent.ActivateAbility(this));
+            if(!IsActive && !Agent.ActivateAbility(this))
+                return;
+            navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(target);
         }
 
@@ -53,6 +52,13 @@ namespace HandcraftedGames.AgentController.Abilities
             var inputVector = new Vector2(vel.x, vel.z);
             moveAbility.SetInputVector(inputVector);
             navMeshAgent.nextPosition = Agent.GameObject.transform.position;
+        }
+
+        public override void Stop()
+        {
+            base.Stop();
+            navMeshAgent.isStopped = true;
+            moveAbility.SetInputVector(Vector2.zero);
         }
     }
 }

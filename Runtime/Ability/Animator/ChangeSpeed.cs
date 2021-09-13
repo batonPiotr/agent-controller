@@ -7,7 +7,6 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
     public class ChangeSpeed : Ability, IChangeSpeedAbility
     {
         public override string Name => "Change Speed Ability";
-        private Animator animator;
         private IMoveAbility moveAbility;
 
         public void SetSpeedMultiplier(float multiplier)
@@ -28,8 +27,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             moveAbility = agent.GetAbility<IMoveAbility>();
             if(moveAbility == null)
                 Debug.LogError("Couldn't add ability ChangeSpeed because the IMoveAbility wasn't found!");
-            animator = agent.GameObject.GetComponent<Animator>();
-            return animator != null && moveAbility != null;
+            return moveAbility != null;
         }
     }
 }
