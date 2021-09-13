@@ -1,11 +1,8 @@
 {
-    "name": "HandcraftedGames.AgentController.Editor.Tests",
+    "name": "HandcraftedGames.AgentController.Editor",
     "rootNamespace": "",
     "references": [
-        "Unity.PerformanceTesting",
-        "UnityEditor.TestRunner",
-        "HandcraftedGames.AgentController",
-        "HandcraftedGames.AgentController.Editor"
+        "HandcraftedGames.AgentController"
     ],
     "includePlatforms": [
         "Editor"

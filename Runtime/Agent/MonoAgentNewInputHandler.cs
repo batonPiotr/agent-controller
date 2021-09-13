@@ -13,7 +13,7 @@ namespace HandcraftedGames.AgentController
 
         public IMoveAbility moveAbility;
         public IRotateAbility rotateAbility;
-        public IChangeSpeed changeSpeedAbility;
+        public IChangeSpeedAbility changeSpeedAbility;
 
         private FloatTween forwardInputTween = new FloatTween(0.0f);
         private FloatTween backwardInputTween = new FloatTween(0.0f);
@@ -119,7 +119,7 @@ namespace HandcraftedGames.AgentController
             if (moveAbility == null /*|| rotateAbility == null*/)
             {
                 moveAbility = target.agent.GetAbility<IMoveAbility>();
-                changeSpeedAbility = target.agent.GetAbility<IChangeSpeed>();
+                changeSpeedAbility = target.agent.GetAbility<IChangeSpeedAbility>();
                 // rotateAbility = target.agent.GetAbility<IRotateAbility>();
             }
             else

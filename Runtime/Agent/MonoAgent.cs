@@ -1,11 +1,18 @@
-
 namespace HandcraftedGames.AgentController
 {
-    using System.Collections;
+    using System;
+    using System.Collections.Generic;
+    using HandcraftedGames.AgentController.Abilities;
     using UnityEngine;
+    using System.Linq;
+    using HandcraftedGames.Utils;
+    using HandcraftedGames.AgentController.Abilities.Animator;
+    using HandcraftedGames.AgentController.Abilities.Rigidbody;
 
+    [Serializable]
     public class MonoAgent : MonoBehaviour
     {
+        [SerializeReference]
         public IAgent agent;
 
         private void Awake()
