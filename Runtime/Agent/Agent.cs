@@ -4,13 +4,18 @@ namespace HandcraftedGames.AgentController
     using UnityEngine;
     using System.Collections.Generic;
     using HandcraftedGames.AgentController.Abilities;
+    using System.Linq;
 
+    [Serializable]
     public class Agent : IAgent
     {
         private GameObject gameObject;
         public GameObject GameObject => gameObject;
 
-        private List<IAbility> Abilities = new List<IAbility>();
+        public List<IAbility> Abilities => abilities;
+
+        [SerializeReference]
+        private List<IAbility> abilities = new List<IAbility>();
 
         private List<IFixedUpdate> FixedUpdateAbilities = new List<IFixedUpdate>();
         private List<IUpdate> UpdateAbilities = new List<IUpdate>();
@@ -46,7 +51,7 @@ namespace HandcraftedGames.AgentController
             var type = typeof(T);
             foreach(var ability in Abilities)
                 if(ability is T)
-                    return (T)ability;
+                    return ability as T;
             return null;
         }
 

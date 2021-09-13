@@ -1,13 +1,18 @@
+using System;
+using UnityEngine;
+
 namespace HandcraftedGames.AgentController.Abilities
 {
-    public abstract class Ability : IAbility
+    [Serializable]
+    public class Ability : IAbility
     {
+        public virtual string Name => "Unnamed Ability";
         private IAgent _Agent;
         public IAgent Agent => _Agent;
 
         protected bool _IsActive = false;
         public bool IsActive => _IsActive;
-
+        [SerializeField]
         private bool _Enabled = false;
         public bool Enabled => _Enabled;
 
@@ -16,12 +21,13 @@ namespace HandcraftedGames.AgentController.Abilities
             if(!Enabled)
                 return;
             _Enabled = false;
+            Stop();
             OnDisable();
         }
 
         public void Enable()
         {
-            if(Enabled || _Agent == null) 
+            if(Enabled) 
                 return;
             _Enabled = true;
             OnEnable();
@@ -46,12 +52,12 @@ namespace HandcraftedGames.AgentController.Abilities
             return true;
         }
 
-        protected abstract bool ValidateAgent(IAgent agent);
-        protected virtual bool TryToActivateInternal() => true;
+        protected virtual bool ValidateAgent(IAgent agent) {return true;}
+        protected virtual bool ShouldBeActivated() => true;
 
         public bool TryToActivate()
         {
-            if(!IsActive && Enabled && Agent != null && TryToActivateInternal())
+            if(!IsActive && Enabled && Agent != null && ShouldBeActivated())
             {
                 _IsActive = true;
                 return true;

@@ -12,8 +12,6 @@ namespace HandcraftedGames.AgentController.Samples.Shared
     public class AnimatorAgentCreator : MonoBehaviour
     {
         MonoAgent monoAgent;
-        NavMeshAgent agent;
-        Animator animator;
         
         void Start()
         {
@@ -23,19 +21,7 @@ namespace HandcraftedGames.AgentController.Samples.Shared
             monoAgent.agent.AddAbility(new ChangeSpeed());
             monoAgent.agent.AddAbility(new GoToAbility());
 
-            monoAgent.agent.GetAbility<IGoToAbility>().GoTo(new Vector3(-2, 0.5f, 10));
-            agent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
-            animator.applyRootMotion = true;
-            // monoAgent.agent.AddAbility(new RigidbodyRotation());
+            monoAgent.agent.GetAbility<IGoToAbility>().GoTo(new Vector3(-20.5f,0.5f,23.5f));
         }
-
-
-        // void OnAnimatorMove ()
-        // {
-            // Update position to agent position
-            // transform.position = agent.nextPosition;
-            // agent.nextPosition = transform.position;
-        // }
     }
 }

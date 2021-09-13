@@ -1,14 +1,26 @@
 namespace HandcraftedGames.AgentController.Abilities.Animator
 {
+    using System;
     using UnityEngine;
+
+    [Serializable]
     public class ChangeSpeed : Ability, IChangeSpeedAbility
     {
+        public override string Name => "Change Speed Ability";
         private Animator animator;
         private IMoveAbility moveAbility;
 
         public void SetSpeedMultiplier(float multiplier)
         {
+            if(!Enabled)
+                return;
+            if(!IsActive)
+            {
+                if(!Agent.ActivateAbility(this))
+                    return;
+            }
             moveAbility.SpeedMultiplier = multiplier;
+            Stop();
         }
 
         protected override bool ValidateAgent(IAgent agent)

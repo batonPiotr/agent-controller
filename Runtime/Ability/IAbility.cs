@@ -3,6 +3,7 @@ namespace HandcraftedGames.AgentController.Abilities
     using System;
     public interface IAbility: IDisposable
     {
+        string Name { get; }
         /// <summary>
         /// Agent this ability is added to.
         /// </summary>

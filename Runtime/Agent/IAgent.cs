@@ -1,6 +1,7 @@
 namespace HandcraftedGames.AgentController
 {
     using System;
+    using System.Collections.Generic;
     using HandcraftedGames.AgentController.Abilities;
     using UnityEngine;
     public interface IAgent: IDisposable, IFixedUpdate, IUpdate
@@ -8,6 +9,8 @@ namespace HandcraftedGames.AgentController
         event System.Action<IAgent> OnDestroy;
 
         GameObject GameObject { get; }
+
+        List<IAbility> Abilities { get; }
 
         bool AddAbility(IAbility ability, bool enableOnAdd = true);
         T GetAbility<T>() where T: class, IAbility;
