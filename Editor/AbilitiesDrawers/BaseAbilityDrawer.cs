@@ -60,7 +60,6 @@ namespace HandcraftedGames.AgentController.Abilities
             var shouldFoldout = ShouldFoldout(ability);
 
             var enabledProperty = property.FindPropertyRelative("_Enabled");
-            // var enabledProperty2 = property.FindPropertyRelative("Enabled");
 
             if(enabledProperty != null)
             {

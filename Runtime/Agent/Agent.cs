@@ -42,7 +42,10 @@ namespace HandcraftedGames.AgentController
                 UpdateAbilities.Add((IUpdate)ability);
             if(ability is IFixedUpdate)
                 FixedUpdateAbilities.Add((IFixedUpdate)ability);
-            ability.Enable();
+
+            if(enableOnAdd)
+                ability.Enable();
+                
             return true;
         }
 

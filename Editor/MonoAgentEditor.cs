@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using HandcraftedGames.AgentController.Abilities;
 using HandcraftedGames.AgentController.Abilities.Animator;
 using UnityEditor;
@@ -55,11 +56,15 @@ namespace HandcraftedGames.AgentController
             foreach(var t in typesWithAbilityAttribute)
             {
                 var attribute = t.GetCustomAttribute(typeof(AbilityAttribute)) as AbilityAttribute;
-                
+
                 if(attribute == null)
                     continue;
 
+                if(targetAgent.abilities.Any(i => i.GetType() == t))
+                    continue;
+
                 menu.AddItem(new GUIContent(attribute.EditorItemName), false, () => {
+                    
                     var instance = Activator.CreateInstance(t) as IAbility;
                     var l = targetAgent.abilities;
                     l.Add(instance);
@@ -92,6 +97,21 @@ namespace HandcraftedGames.AgentController
             serializedObject.Update();
 
             List.DoLayoutList();
+            var typesCount = new Dictionary<Type, int>();
+            foreach(var ability in targetAgent.abilities)
+            {
+                if(!typesCount.ContainsKey(ability.GetType()))
+                    typesCount[ability.GetType()] = 0;
+                typesCount[ability.GetType()] += 1;
+            }
+            foreach(var ability in typesCount)
+            {
+                if(ability.Value > 1)
+                {
+                    var foundInstance = targetAgent.abilities.Find(a => a.GetType() == ability.Key);
+                    EditorGUILayout.HelpBox("There are duplicates of " + foundInstance.Name, MessageType.Error);
+                }
+            }
             serializedObject.ApplyModifiedProperties();
         }
     }
