@@ -15,7 +15,7 @@ namespace HandcraftedGames.AgentController.Abilities
     {
         protected override float GetAbilityHeight(SerializedProperty property, GUIContent label)
         {
-            return base.GetAbilityHeight(property, label) + EditorGUIUtility.singleLineHeight * 1;
+            return base.GetAbilityHeight(property, label) + EditorGUIUtility.singleLineHeight * 2;
         }
 
         protected override Rect DrawAbilityGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -23,15 +23,18 @@ namespace HandcraftedGames.AgentController.Abilities
             var adjustedPosition = base.DrawAbilityGUI(position, property, label);
             var ability = AbilityFor(property) as FollowAbility;
 
+            int index = 0;
+
             var stopWhenReached = property.FindPropertyRelative("stopWhenReached");
-
-            EditorGUI.PropertyField(RectLayout.VerticalRect(adjustedPosition, 0), stopWhenReached);
-
-            // EditorGUI.LabelField(RectLayout.VerticalRect(adjustedPosition, 0), "T1213: " + property.type + ", " + ability.Name);
+            if(stopWhenReached != null)
+                EditorGUI.PropertyField(RectLayout.VerticalRect(adjustedPosition, index++), stopWhenReached);
+            var updateTargetPositionInterval = property.FindPropertyRelative("updateTargetPositionInterval");
+            if(stopWhenReached != null)
+                EditorGUI.PropertyField(RectLayout.VerticalRect(adjustedPosition, index++), updateTargetPositionInterval);
 
             var unusedArea = adjustedPosition;
-            unusedArea.y = RectLayout.VerticalRect(adjustedPosition, 0).yMax;
-            unusedArea.height -= RectLayout.VerticalRect(adjustedPosition, 0).height;
+            unusedArea.y = RectLayout.VerticalRect(adjustedPosition, index).yMax;
+            unusedArea.height -= RectLayout.VerticalRect(adjustedPosition, index).height;
             return unusedArea;
         }
     }
