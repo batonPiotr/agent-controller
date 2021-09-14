@@ -44,24 +44,16 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
 
         public void SetInputVector(Vector2 input)
         {
-            if(!Enabled)
-                return;
-
-            if(!IsActive)
-            {
-                if(!Agent.ActivateAbility(this))
-                    return;
-            }
-            var inputNormalized = (input + Vector2.one) * 0.5f;
-            var isForwardMovement = Mathf.Abs(inputNormalized.y) > 0.001f;
-            var isSidewardMovement = Mathf.Abs(inputNormalized.x) > 0.001f;
-            var isMovement = isForwardMovement || isSidewardMovement;
-
             if(!IsActive && !Agent.ActivateAbility(this))
             {
                 Debug.LogWarning("Deactivate " + this);
                 return;
             }
+
+            var inputNormalized = (input + Vector2.one) * 0.5f;
+            var isForwardMovement = Mathf.Abs(inputNormalized.y) > 0.001f;
+            var isSidewardMovement = Mathf.Abs(inputNormalized.x) > 0.001f;
+            var isMovement = isForwardMovement || isSidewardMovement;
 
             // if(isForwardMovement)
                 animator.SetFloat(forwardParameterHash, Mathf.Lerp(forwardMinValue * speedMultiplier, forwardMaxValue * speedMultiplier, inputNormalized.y));
@@ -80,7 +72,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             return animator != null;
         }
 
-        protected override void OnDisable()
+        public override void Stop()
         {
             animator.SetBool(isMovingHash, false);
             animator.SetFloat(forwardParameterHash, 0.0f);

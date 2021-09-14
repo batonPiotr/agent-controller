@@ -12,6 +12,8 @@ namespace HandcraftedGames.AgentController.Samples.Shared
     public class AnimatorAgentCreator : MonoBehaviour
     {
         MonoAgent monoAgent;
+
+        public GameObject followTarget;
         
         void Start()
         {
@@ -20,8 +22,10 @@ namespace HandcraftedGames.AgentController.Samples.Shared
             monoAgent.agent.AddAbility(new MoveAbility("moveForward", -1.0f, 1.0f, "moveSideward", -1.0f, 1.0f, "isMoving"));
             monoAgent.agent.AddAbility(new ChangeSpeed());
             monoAgent.agent.AddAbility(new GoToAbility());
+            monoAgent.agent.AddAbility(new FollowAbility());
 
-            monoAgent.agent.GetAbility<IGoToAbility>().GoTo(new Vector3(-20.5f,0.5f,23.5f));
+            // monoAgent.agent.GetAbility<IGoToAbility>().GoTo(new Vector3(-20.5f,0.5f,23.5f));
+            monoAgent.agent.GetAbility<IFollowAbility>().Follow(followTarget);
         }
     }
 }
