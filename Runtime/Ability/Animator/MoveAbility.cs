@@ -3,26 +3,40 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
     using System;
     using UnityEngine;
     [Serializable]
+    [Ability("Animator/Move")]
     public class MoveAbility : Ability, IMoveAbility
     {
         public override string Name => "Move Ability";
         private Animator animator;
+        [SerializeField]
         private string forwardParameterName;
+        [SerializeField]
         private float forwardMinValue;
+        [SerializeField]
         private float forwardMaxValue;
         
-        [SerializeField]
         private int forwardParameterHash;
 
 
+        [SerializeField]
         private string sidewardParameterName;
-        private float sidewardMinValue;
-        private float sidewardMaxValue;
         private int sidewardParameterHash;
+
+        [SerializeField]
+        private float sidewardMinValue;
+        [SerializeField]
+        private float sidewardMaxValue;
+        [SerializeField]
+        private string isMovingParameterName;
         private int isMovingHash;
 
         private float speedMultiplier = 1.0f;
         public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
+
+        public MoveAbility()
+        {
+
+        }
 
         public MoveAbility(
             string forwardParameterName, float forwardMinValue, float forwardMaxValue,

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HandcraftedGames.AgentController;
 using HandcraftedGames.AgentController.Abilities;
@@ -11,7 +12,7 @@ using UnityEngine;
 namespace HandcraftedGames.AgentController.Abilities
 {
 
-    [CustomPropertyDrawer(typeof(Ability), true)]
+    [CustomPropertyDrawer(typeof(IAbility), true)]
     public class BaseAbilityDrawer : PropertyDrawer
     {
         private static Dictionary<IAbility, bool> foldout = new Dictionary<IAbility, bool>();
@@ -24,11 +25,14 @@ namespace HandcraftedGames.AgentController.Abilities
 
         protected IAbility AbilityFor(SerializedProperty property)
         {
-            return property.GetValue() as IAbility;
+            var retVal = property.GetValue() as IAbility;
+            return retVal;
         }
 
         protected bool ShouldFoldout(IAbility ability)
         {
+            if(ability == null)
+                return false;
             if(!foldout.ContainsKey(ability))
                 foldout[ability] = false;
             return foldout[ability];
@@ -50,10 +54,13 @@ namespace HandcraftedGames.AgentController.Abilities
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var ability = AbilityFor(property);
+            if(ability == null)
+                return;
 
             var shouldFoldout = ShouldFoldout(ability);
 
             var enabledProperty = property.FindPropertyRelative("_Enabled");
+            // var enabledProperty2 = property.FindPropertyRelative("Enabled");
 
             if(enabledProperty != null)
             {
@@ -63,11 +70,14 @@ namespace HandcraftedGames.AgentController.Abilities
                 var newValue = EditorGUI.Toggle(togglePosition, enabledProperty.boolValue);
                 if(newValue != enabledProperty.boolValue)
                 {
-                    if(newValue)
-                        ability.Enable();
-                    else
-                        ability.Disable();
-                    enabledProperty.boolValue = ability.Enabled;
+                    if(Application.isPlaying)
+                    {
+                        if(newValue)
+                            ability.Enable();
+                        else
+                            ability.Disable();
+                    }
+                    enabledProperty.boolValue = newValue;
                 }
             }
             
@@ -109,6 +119,44 @@ namespace HandcraftedGames.AgentController.Abilities
         protected virtual Rect DrawAbilityGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             return position;
+        }
+    }
+
+    [CustomPropertyDrawer(typeof(Ability), true)]
+    public class GenericAbilityDrawer: BaseAbilityDrawer
+    {
+        protected override float GetAbilityHeight(SerializedProperty property, GUIContent label)
+        {
+            var copy = property.Copy();
+            var count = 0;
+            foreach(var c in copy)
+            {
+                var p = c as SerializedProperty;
+                if(p == null || p.name == "_Enabled")
+                    continue;
+                count++;
+            }
+
+            return base.GetAbilityHeight(property, label) + EditorGUIUtility.singleLineHeight * count;
+        }
+
+        protected override Rect DrawAbilityGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            var adjustedPosition = base.DrawAbilityGUI(position, property, label);
+            var index = 0;
+            foreach(var subProp in property)
+            {
+                var p = subProp as SerializedProperty;
+                if(p == null || p.name == "_Enabled")
+                    continue;
+                EditorGUI.PropertyField(RectLayout.VerticalRect(adjustedPosition, index), p);
+                index++;
+            }
+
+            var unusedArea = adjustedPosition;
+            unusedArea.y = RectLayout.VerticalRect(adjustedPosition, index).yMax;
+            unusedArea.height -= RectLayout.VerticalRect(adjustedPosition, index).height;
+            return unusedArea;
         }
     }
 

@@ -15,6 +15,9 @@ namespace HandcraftedGames.AgentController
         [SerializeReference]
         public IAgent agent;
 
+        [SerializeReference]
+        public List<IAbility> abilities = new List<IAbility>();
+
         private void Awake()
         {
             agent = new Agent(gameObject);

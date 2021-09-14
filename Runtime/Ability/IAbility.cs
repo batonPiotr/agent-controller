@@ -1,6 +1,16 @@
 namespace HandcraftedGames.AgentController.Abilities
 {
     using System;
+    [System.AttributeUsage(System.AttributeTargets.Class)]
+    public class AbilityAttribute: Attribute
+    {
+        public string EditorItemName;
+        public AbilityAttribute(string editorItemName)
+        {
+            EditorItemName = editorItemName;
+        }
+    }
+
     public interface IAbility: IDisposable
     {
         string Name { get; }
