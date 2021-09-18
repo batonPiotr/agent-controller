@@ -1,8 +1,12 @@
 namespace HandcraftedGames.AgentController.Abilities.Rigidbody
 {
+    using System;
     using UnityEngine;
+    [Serializable]
+    [Ability("Rigidbody/Rotate")]
     public class RigidbodyRotation : Ability, IRotateAbility, IFixedUpdate
     {
+        public override string Name => "Rigidbody Rotation";
         private float rotationInput;
         private Rigidbody rigidbody;
 

@@ -13,7 +13,7 @@ namespace HandcraftedGames.AgentController.Abilities
         protected bool _IsActive = false;
         public bool IsActive => _IsActive;
         [SerializeField]
-        private bool _Enabled = false;
+        private bool _Enabled = true;
         public bool Enabled => _Enabled;
 
         public void Disable()
@@ -21,15 +21,22 @@ namespace HandcraftedGames.AgentController.Abilities
             if(!Enabled)
                 return;
             _Enabled = false;
+            if(Agent == null)
+                return;
+
             Stop();
             OnDisable();
         }
 
         public void Enable()
         {
-            if(Enabled) 
+            if(Enabled)
                 return;
             _Enabled = true;
+
+            if(Agent == null)
+                return;
+                
             OnEnable();
         }
 
@@ -52,7 +59,7 @@ namespace HandcraftedGames.AgentController.Abilities
             return true;
         }
 
-        protected virtual bool ValidateAgent(IAgent agent) {return true;}
+        protected virtual bool ValidateAgent(IAgent agent) => true;
         protected virtual bool ShouldBeActivated() => true;
 
         public bool TryToActivate()

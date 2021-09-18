@@ -5,6 +5,7 @@ namespace HandcraftedGames.AgentController.Abilities
     using UnityEngine.AI;
 
     [Serializable]
+    [Ability("Generic/Go To")]
     public class GoToAbility : Ability, IGoToAbility, IUpdate
     {
         public override string Name => "Go To Ability";

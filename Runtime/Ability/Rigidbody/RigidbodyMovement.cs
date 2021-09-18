@@ -1,11 +1,16 @@
 namespace HandcraftedGames.AgentController.Abilities.Rigidbody
 {
+    using System;
     using UnityEngine;
+    [Serializable]
+    [Ability("Rigidbody/Move")]
     public class RigidbodyMovement : Ability, IMoveAbility, IFixedUpdate
     {
+        public override string Name => "Rigidbody Move";
         private Vector2 inputVector;
         private Rigidbody rigidbody;
 
+        [SerializeField]
         private float speedMultiplier = 1.0f;
         public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
 

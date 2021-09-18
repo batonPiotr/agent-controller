@@ -1,18 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &756673273
-MonoBehaviour:
+--- !u!54 &1071887811
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3765622450394360382}
+  serializedVersion: 2
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &1071887810
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765622450394360382}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7898e9fb6df704876b1abbe6e91d2044, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 756673274}
+  m_Radius: 0.22763777
+  m_Height: 1.6379092
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7599906, z: 0}
 --- !u!114 &756673274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,18 +42,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25e40ac6d8b2448298b4de9d5775984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &756673275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765622450394360382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e9180858930f49ac8371d06eba34b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  agent:
+    id: 0
+  abilities:
+  - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
+  references:
+    version: 1
+    00000000:
+      type: {class: , ns: , asm: }
+    00000001:
+      type: {class: MoveAbility, ns: HandcraftedGames.AgentController.Abilities.Animator, asm: HandcraftedGames.AgentController}
+      data:
+        _Enabled: 1
+        forwardParameterName: moveForward
+        forwardMinValue: -1
+        forwardMaxValue: 1
+        sidewardParameterName: moveSideward
+        sidewardMinValue: -1
+        sidewardMaxValue: 1
+        isMovingParameterName: isMoving
+    00000002:
+      type: {class: ChangeSpeed, ns: HandcraftedGames.AgentController.Abilities.Animator, asm: HandcraftedGames.AgentController}
+      data:
+        _Enabled: 1
+    00000003:
+      type: {class: GoToAbility, ns: HandcraftedGames.AgentController.Abilities, asm: HandcraftedGames.AgentController}
+      data:
+        _Enabled: 1
+    00000004:
+      type: {class: FollowAbility, ns: HandcraftedGames.AgentController.Abilities, asm: HandcraftedGames.AgentController}
+      data:
+        _Enabled: 1
+        stopWhenReached: 1
+        updateTargetPositionInterval: 1
 --- !u!114 &756673276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,36 +225,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &1071887811
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765622450394360382}
-  serializedVersion: 2
-  m_Mass: 50
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &1071887810
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3765622450394360382}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.22763777
-  m_Height: 1.6379092
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.7599906, z: 0}
 --- !u!1001 &3765622450394262764
 PrefabInstance:
   m_ObjectHideFlags: 0

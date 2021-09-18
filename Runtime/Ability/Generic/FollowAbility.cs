@@ -5,6 +5,7 @@ namespace HandcraftedGames.AgentController.Abilities
     using UnityEngine;
 
     [Serializable]
+    [Ability("Generic/Follow")]
     public class FollowAbility : Ability, IFollowAbility, IFixedUpdate
     {
         public override string Name => "Follow Ability";
