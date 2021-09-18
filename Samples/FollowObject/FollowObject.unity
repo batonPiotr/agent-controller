@@ -2719,10 +2719,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: Abilities.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -2814,5 +2810,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 756673275, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
+--- !u!1 &3765622450040440348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3765622450394360382, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
+  m_PrefabInstance: {fileID: 3765622450040440347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3765622450040440349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
+  m_PrefabInstance: {fileID: 3765622450040440347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765622450040440348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25e40ac6d8b2448298b4de9d5775984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3765622450040440350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765622450040440348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbbbb0e9e54e472f853bc1cec8fe7c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 3765622450040440349}
+  objectToFollow: {fileID: 1287290864}

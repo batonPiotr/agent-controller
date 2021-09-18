@@ -15,6 +15,7 @@ namespace HandcraftedGames.AgentController
     {
         MonoAgent targetAgent;
         SerializedProperty abilities;
+        List<IAbility> abilitiesList;
 
         ReorderableList List;
 
@@ -24,6 +25,7 @@ namespace HandcraftedGames.AgentController
         {
             targetAgent = target as MonoAgent;
             abilities = serializedObject.FindProperty("abilities");
+            abilitiesList = abilities.GetValue() as List<IAbility>;
             typesWithAbilityAttribute = GetTypesWithHelpAttribute(Assembly.GetAssembly(typeof(IAbility)));
 
             List = new ReorderableList(serializedObject, abilities, true, true, true, true);
@@ -60,13 +62,13 @@ namespace HandcraftedGames.AgentController
                 if(attribute == null)
                     continue;
 
-                if(targetAgent.abilities.Any(i => i.GetType() == t))
+                if(abilitiesList.Any(i => i.GetType() == t))
                     continue;
 
                 menu.AddItem(new GUIContent(attribute.EditorItemName), false, () => {
                     
                     var instance = Activator.CreateInstance(t) as IAbility;
-                    var l = targetAgent.abilities;
+                    var l = abilitiesList;
                     l.Add(instance);
                     list.serializedProperty.SetValue(l);
                 });
@@ -98,7 +100,7 @@ namespace HandcraftedGames.AgentController
 
             List.DoLayoutList();
             var typesCount = new Dictionary<Type, int>();
-            foreach(var ability in targetAgent.abilities)
+            foreach(var ability in abilitiesList)
             {
                 if(!typesCount.ContainsKey(ability.GetType()))
                     typesCount[ability.GetType()] = 0;
@@ -108,7 +110,7 @@ namespace HandcraftedGames.AgentController
             {
                 if(ability.Value > 1)
                 {
-                    var foundInstance = targetAgent.abilities.Find(a => a.GetType() == ability.Key);
+                    var foundInstance = abilitiesList.Find(a => a.GetType() == ability.Key);
                     EditorGUILayout.HelpBox("There are duplicates of " + foundInstance.Name, MessageType.Error);
                 }
             }

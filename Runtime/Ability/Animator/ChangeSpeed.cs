@@ -4,6 +4,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
     using UnityEngine;
 
     [Serializable]
+    [Ability("Generic/Change Speed")]
     public class ChangeSpeed : Ability, IChangeSpeedAbility
     {
         public override string Name => "Change Speed Ability";

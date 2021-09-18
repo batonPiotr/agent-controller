@@ -29,7 +29,7 @@ namespace HandcraftedGames.AgentController
         #if ENABLE_INPUT_SYSTEM
         public void OnRun(InputAction.CallbackContext context)
         {
-            if(moveAbility != null)
+            if(changeSpeedAbility != null)
             {
                 float minSpeed = 1.0f;
                 float maxSpeed = 2.0f;
@@ -43,7 +43,6 @@ namespace HandcraftedGames.AgentController
                     speedInputTween.Stop();
                     speedInputTween.TweenTo(minSpeed, Mathf.Abs((speedInputTween.Value / maxSpeed)) * delay);
                 }
-
                 changeSpeedAbility.SetSpeedMultiplier(speedInputTween.Value);
             }
         }
@@ -120,7 +119,7 @@ namespace HandcraftedGames.AgentController
             {
                 moveAbility = target.agent.GetAbility<IMoveAbility>();
                 changeSpeedAbility = target.agent.GetAbility<IChangeSpeedAbility>();
-                // rotateAbility = target.agent.GetAbility<IRotateAbility>();
+                rotateAbility = target.agent.GetAbility<IRotateAbility>();
             }
             else
             {
