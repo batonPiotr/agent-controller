@@ -12,9 +12,6 @@ namespace HandcraftedGames.AgentController.Abilities
         private IMoveAbility moveAbility;
         private NavMeshAgent navMeshAgent;
 
-        Vector2 smoothDeltaPosition = Vector2.zero;
-        Vector2 velocity = Vector2.zero;
-
         override protected bool ValidateAgent(IAgent agent)
         {
             moveAbility = agent.GetAbility<IMoveAbility>();
@@ -48,9 +45,26 @@ namespace HandcraftedGames.AgentController.Abilities
             bool shouldMove = navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance;
             if(!shouldMove)
                 Stop();
+
+            var speed = Vector3.Project(navMeshAgent.desiredVelocity, Agent.GameObject.transform.forward).magnitude;
+
+            var angle = Vector3.Angle(navMeshAgent.desiredVelocity, Agent.GameObject.transform.forward);
+            var negative = Vector3.Angle(navMeshAgent.desiredVelocity, Agent.GameObject.transform.right) < 90.0f ? 1.0f : -1.0f;
+
+            if(angle > 45.0f)
+                speed = 0.0f;
+
+            // var deadZone = 5.0f;
+            // if(Mathf.Abs(angle) < deadZone)
+            //     angle = 0.0f;
+
+            angle = Mathf.Clamp(angle, 0.0f, 45.0f) / 45.0f;
+
+            Debug.Log("Angle: " + angle);
+            Debug.Log("Speed: " + speed);
             
-            var vel = navMeshAgent.desiredVelocity.normalized;
-            var inputVector = new Vector2(vel.x, vel.z);
+            
+            var inputVector = new Vector2(angle * negative, speed);
             moveAbility.SetInputVector(inputVector);
             navMeshAgent.nextPosition = Agent.GameObject.transform.position;
         }
