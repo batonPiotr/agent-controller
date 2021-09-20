@@ -47,6 +47,10 @@ namespace HandcraftedGames.AgentController.Abilities
                 Stop();
 
             var speed = Vector3.Project(navMeshAgent.desiredVelocity, Agent.GameObject.transform.forward).magnitude;
+            if(speed > 0.3f)
+                speed = 1.0f;
+            if(speed < -0.3f)
+                speed = -1.0f;
 
             var angle = Vector3.Angle(navMeshAgent.desiredVelocity, Agent.GameObject.transform.forward);
             var negative = Vector3.Angle(navMeshAgent.desiredVelocity, Agent.GameObject.transform.right) < 90.0f ? 1.0f : -1.0f;

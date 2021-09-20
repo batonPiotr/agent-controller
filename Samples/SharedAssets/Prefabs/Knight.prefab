@@ -64,6 +64,7 @@ MonoBehaviour:
         sidewardMinValue: -1
         sidewardMaxValue: 1
         isMovingParameterName: isMoving
+        EMASize: 15
     00000002:
       type: {class: ChangeSpeed, ns: HandcraftedGames.AgentController.Abilities.Animator, asm: HandcraftedGames.AgentController}
       data:

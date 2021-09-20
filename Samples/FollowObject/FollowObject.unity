@@ -2743,6 +2743,10 @@ PrefabInstance:
       value: njb
       objectReference: {fileID: 0}
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
+      propertyPath: abilities.Array.data[0].EMASize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: someAbilities.Array.data[2].data
       value: 
       objectReference: {fileID: 0}
@@ -2757,6 +2761,10 @@ PrefabInstance:
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: aAbilities.Array.data[0].factorio
       value: 122.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
+      propertyPath: abilities.Array.data[3].stopWhenReached
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 756673275, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: followTarget

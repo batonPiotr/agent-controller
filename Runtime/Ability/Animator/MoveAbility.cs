@@ -1,6 +1,8 @@
 namespace HandcraftedGames.AgentController.Abilities.Animator
 {
     using System;
+    using System.Collections.Generic;
+    using HandcraftedGames.Utils;
     using UnityEngine;
     [Serializable]
     [Ability("Animator/Move")]
@@ -33,27 +35,17 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         private float speedMultiplier = 1.0f;
         public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
 
+        [SerializeField]
+        private int EMASize = 5;
+
+        private List<double> forwardValues = new List<double>();
+        private List<double> sidewardValues = new List<double>();
+
+        int lastFrameSetInputVector = 0;
+
         public MoveAbility()
         {
 
-        }
-
-        public MoveAbility(
-            string forwardParameterName, float forwardMinValue, float forwardMaxValue,
-            string sidewardParameterName, float sidewardMinValue, float sidewardMaxValue,
-            string isMovingParameter
-        )
-        {
-            this.forwardParameterName = forwardParameterName;
-            this.forwardMinValue = forwardMinValue;
-            this.forwardMaxValue = forwardMaxValue;
-            forwardParameterHash = Animator.StringToHash(forwardParameterName);
-
-            this.sidewardParameterName = sidewardParameterName;
-            this.sidewardMinValue = sidewardMinValue;
-            this.sidewardMaxValue = sidewardMaxValue;
-            sidewardParameterHash = Animator.StringToHash(sidewardParameterName);
-            isMovingHash = Animator.StringToHash(isMovingParameter);
         }
 
         public void SetInputVector(Vector2 input)
@@ -65,16 +57,19 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             }
 
             var inputNormalized = (input + Vector2.one) * 0.5f;
-            var isForwardMovement = Mathf.Abs(inputNormalized.y) > 0.001f;
-            var isSidewardMovement = Mathf.Abs(inputNormalized.x) > 0.001f;
-            var isMovement = isForwardMovement || isSidewardMovement;
+            
+            lastFrameSetInputVector = Time.frameCount;
+            Add(Mathf.Lerp(forwardMinValue * speedMultiplier, forwardMaxValue * speedMultiplier, inputNormalized.y), forwardValues);
+            Add(Mathf.Lerp(sidewardMinValue * speedMultiplier, sidewardMaxValue * speedMultiplier, inputNormalized.x), sidewardValues);
 
-            // if(isForwardMovement)
-                animator.SetFloat(forwardParameterHash, Mathf.Lerp(forwardMinValue * speedMultiplier, forwardMaxValue * speedMultiplier, inputNormalized.y));
-            // if(isSidewardMovement)
-                animator.SetFloat(sidewardParameterHash, Mathf.Lerp(sidewardMinValue * speedMultiplier, sidewardMaxValue * speedMultiplier, inputNormalized.x));
 
-            var isMoving = input.sqrMagnitude > 0.001;
+            var forwardValue = (float)forwardValues.ExponentialMovingAverage(EMASize);
+            var sidewardValue = (float)sidewardValues.ExponentialMovingAverage(EMASize);
+
+            animator.SetFloat(forwardParameterHash, forwardValue);
+            animator.SetFloat(sidewardParameterHash, sidewardValue);
+
+            var isMoving = new Vector2(forwardValue, sidewardValue).sqrMagnitude > 0.001;
             animator.SetBool(isMovingHash, isMoving);
             if(!isMoving)
                 Stop();
@@ -99,6 +94,13 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             forwardParameterHash = Animator.StringToHash(forwardParameterName);
             sidewardParameterHash = Animator.StringToHash(sidewardParameterName);
             isMovingHash = Animator.StringToHash(isMovingParameterName);
+        }
+
+        private void Add(double value, List<double> to)
+        {
+            while(to.Count >= EMASize)
+                to.RemoveAt(0);
+            to.Add(value);
         }
     }
 }
