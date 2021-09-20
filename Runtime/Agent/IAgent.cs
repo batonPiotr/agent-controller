@@ -13,6 +13,7 @@ namespace HandcraftedGames.AgentController
         List<IAbility> Abilities { get; }
 
         bool AddAbility(IAbility ability, bool enableOnAdd = true);
+        void RemoveAbility(IAbility ability);
         T GetAbility<T>() where T: class, IAbility;
 
         /// <summary>

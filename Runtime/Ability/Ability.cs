@@ -47,6 +47,8 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public virtual bool ShouldBlockActivatingAbility(IAbility abilityToActivate) => false;
 
+        public virtual bool ShouldStopMyselfDueToActivatingAbility(IAbility abilityThatBlocks) => false;
+
         public bool TryToAdd(IAgent agent)
         {
             if(Agent != null)   
@@ -77,5 +79,11 @@ namespace HandcraftedGames.AgentController.Abilities
         }
 
         public virtual void Dispose() {}
+
+        public void DetachFromAgent()
+        {
+            Stop();
+            _Agent = null;
+        }
     }
 }

@@ -15,10 +15,25 @@ namespace HandcraftedGames.AgentController
         public IRotateAbility rotateAbility;
         public IChangeSpeedAbility changeSpeedAbility;
 
+        [SerializeField]
+        private InputHandlingAbility inputHandlingAbility;
+
         private Vector2 lastInputVector;
 
         float maxValue = 1.0f;
         float delay = 0.0f;
+
+        private void OnEnable()
+        {
+            inputHandlingAbility = new InputHandlingAbility();
+        }
+
+        private void OnDisable()
+        {
+            if(inputHandlingAbility != null && inputHandlingAbility.Agent != null)
+                inputHandlingAbility.Agent.RemoveAbility(inputHandlingAbility);
+            inputHandlingAbility = null;
+        }
 
         #if ENABLE_INPUT_SYSTEM
         public void OnRun(InputAction.CallbackContext context)
@@ -51,6 +66,16 @@ namespace HandcraftedGames.AgentController
             }
             else
             {
+                if(inputHandlingAbility.Agent != this.target.agent)
+                {
+                    if(inputHandlingAbility.Agent != null)
+                        inputHandlingAbility.Agent.RemoveAbility(inputHandlingAbility);
+                    this.target.agent.AddAbility(inputHandlingAbility);
+                }
+
+                if(!inputHandlingAbility.IsActive && !inputHandlingAbility.TryToActivate())
+                    return;
+                
                 moveAbility.SetInputVector(lastInputVector);
             }
         }

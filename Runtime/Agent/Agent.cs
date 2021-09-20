@@ -49,6 +49,16 @@ namespace HandcraftedGames.AgentController
             return true;
         }
 
+        public void RemoveAbility(IAbility ability)
+        {
+            if(ability.Agent != this)
+                return;
+            if(ability.IsActive)
+                ability.Stop();
+            abilities.Remove(ability);
+            ability.DetachFromAgent();
+        }
+
         public T GetAbility<T>() where T : class, IAbility
         {
             var type = typeof(T);
@@ -78,6 +88,15 @@ namespace HandcraftedGames.AgentController
             // Try to activate this ability
             if(!ability.TryToActivate())
                 return false;
+
+            // Check if some ability wants to stop itself due to the newly activated ability
+            foreach(var a in Abilities)
+            {
+                if(!a.IsActive)
+                    continue;
+                if(a.ShouldStopMyselfDueToActivatingAbility(ability))
+                    a.Stop();
+            }
 
             // Check if this new activated ability would like to stop some already running ability
             foreach(var a in Abilities)
