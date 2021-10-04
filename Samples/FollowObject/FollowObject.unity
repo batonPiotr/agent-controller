@@ -2723,10 +2723,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: abilities.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: someAbility._Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -2735,24 +2731,8 @@ PrefabInstance:
       value: 12055
       objectReference: {fileID: 0}
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: properties.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: properties.Array.data[0]
-      value: HandcraftedGames.AgentController HandcraftedGames.AgentController.Properties.MovementProperties
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: someAbilities.Array.size
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: abilities.Array.data[4].data
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: properties.Array.data[0].data
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: somAbilities.Array.data[0].lol
@@ -2761,10 +2741,6 @@ PrefabInstance:
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: somAbilities.Array.data[1].lol
       value: njb
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: abilities.Array.data[0].EMASize
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: someAbilities.Array.data[2].data
@@ -2781,14 +2757,6 @@ PrefabInstance:
     - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: aAbilities.Array.data[0].factorio
       value: 122.93
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: properties.Array.data[0].MovementSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 756673274, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
-      propertyPath: abilities.Array.data[3].stopWhenReached
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 756673275, guid: ca6408af9880a4ff89fa14cda8227371, type: 3}
       propertyPath: followTarget

@@ -12,6 +12,7 @@ namespace HandcraftedGames.AgentController
         public MonoAgent target;
 
         public IMoveAbility moveAbility;
+        public IStrafeAbility strafeAbility;
         public IRotateAbility rotateAbility;
         public IChangeSpeedAbility changeSpeedAbility;
 
@@ -19,6 +20,7 @@ namespace HandcraftedGames.AgentController
         private InputHandlingAbility inputHandlingAbility;
 
         private Vector2 lastInputVector;
+        private float lastStrafeValue;
 
         float maxValue = 1.0f;
         float delay = 0.0f;
@@ -55,6 +57,13 @@ namespace HandcraftedGames.AgentController
                 return;
             lastInputVector = (Vector2)context.ReadValueAsObject();
         }
+
+        public void OnStrafe(InputAction.CallbackContext context)
+        {
+            if(strafeAbility == null)
+                return;
+            lastStrafeValue = (float)context.ReadValueAsObject();
+        }
         
         private void Update()
         {
@@ -63,6 +72,7 @@ namespace HandcraftedGames.AgentController
                 moveAbility = target.agent.GetAbility<IMoveAbility>();
                 changeSpeedAbility = target.agent.GetAbility<IChangeSpeedAbility>();
                 rotateAbility = target.agent.GetAbility<IRotateAbility>();
+                strafeAbility = target.agent.GetAbility<IStrafeAbility>();
             }
             else
             {
@@ -77,6 +87,7 @@ namespace HandcraftedGames.AgentController
                     return;
                 
                 moveAbility.SetInputVector(lastInputVector);
+                strafeAbility.SetInput(lastStrafeValue);
             }
         }
         #endif
