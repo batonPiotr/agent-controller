@@ -2,6 +2,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
 {
     using System;
     using System.Collections.Generic;
+    using HandcraftedGames.AgentController.Properties;
     using HandcraftedGames.Utils;
     using UnityEngine;
     [Serializable]
@@ -9,6 +10,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
     public class MoveAbility : Ability, IMoveAbility
     {
         public override string Name => "Move Ability";
+        private MovementProperties movementProperties;
         private Animator animator;
         [SerializeField]
         private string forwardParameterName;
@@ -31,9 +33,6 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         [SerializeField]
         private string isMovingParameterName;
         private int isMovingHash;
-
-        private float speedMultiplier = 1.0f;
-        public float SpeedMultiplier { get => speedMultiplier; set => speedMultiplier = value; }
 
         [SerializeField]
         private int EMASize = 5;
@@ -59,8 +58,8 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             var inputNormalized = (input + Vector2.one) * 0.5f;
             
             lastFrameSetInputVector = Time.frameCount;
-            Add(Mathf.Lerp(forwardMinValue * speedMultiplier, forwardMaxValue * speedMultiplier, inputNormalized.y), forwardValues);
-            Add(Mathf.Lerp(sidewardMinValue * speedMultiplier, sidewardMaxValue * speedMultiplier, inputNormalized.x), sidewardValues);
+            Add(Mathf.Lerp(forwardMinValue * movementProperties.MovementSpeed, forwardMaxValue * movementProperties.MovementSpeed, inputNormalized.y), forwardValues);
+            Add(Mathf.Lerp(sidewardMinValue * movementProperties.MovementSpeed, sidewardMaxValue * movementProperties.MovementSpeed, inputNormalized.x), sidewardValues);
 
 
             var forwardValue = (float)forwardValues.ExponentialMovingAverage(EMASize);
@@ -79,7 +78,8 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         {
             animator = agent.GameObject.GetComponent<Animator>();
             UpdateHashes();
-            return animator != null;
+            movementProperties = agent.GetProperties<MovementProperties>();
+            return animator != null && movementProperties != null;
         }
 
         public override void Stop()

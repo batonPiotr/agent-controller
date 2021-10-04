@@ -1,6 +1,7 @@
 namespace HandcraftedGames.AgentController.Abilities.Animator
 {
     using System;
+    using HandcraftedGames.AgentController.Properties;
     using UnityEngine;
 
     [Serializable]
@@ -8,7 +9,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
     public class ChangeSpeed : Ability, IChangeSpeedAbility
     {
         public override string Name => "Change Speed Ability";
-        private IMoveAbility moveAbility;
+        private MovementProperties movementProperties;
 
         public void SetSpeedMultiplier(float multiplier)
         {
@@ -19,16 +20,16 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
                 if(!Agent.ActivateAbility(this))
                     return;
             }
-            moveAbility.SpeedMultiplier = multiplier;
+            movementProperties.MovementSpeed = multiplier;
             Stop();
         }
 
         protected override bool ValidateAgent(IAgent agent)
         {
-            moveAbility = agent.GetAbility<IMoveAbility>();
-            if(moveAbility == null)
-                Debug.LogError("Couldn't add ability ChangeSpeed because the IMoveAbility wasn't found!");
-            return moveAbility != null;
+            movementProperties = agent.GetProperties<MovementProperties>();
+            if(movementProperties == null)
+                Debug.LogError("Couldn't add ability ChangeSpeed because the MovementProperties wasn't found!");
+            return movementProperties != null;
         }
     }
 }

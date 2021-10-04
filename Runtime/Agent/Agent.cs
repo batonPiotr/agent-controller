@@ -5,6 +5,7 @@ namespace HandcraftedGames.AgentController
     using System.Collections.Generic;
     using HandcraftedGames.AgentController.Abilities;
     using System.Linq;
+    using HandcraftedGames.AgentController.Properties;
 
     [Serializable]
     public class Agent : IAgent
@@ -16,6 +17,9 @@ namespace HandcraftedGames.AgentController
 
         [SerializeReference]
         private List<IAbility> abilities = new List<IAbility>();
+
+        [SerializeReference]
+        private List<IProperties> properties = new List<IProperties>();
 
         private List<IFixedUpdate> FixedUpdateAbilities = new List<IFixedUpdate>();
         private List<IUpdate> UpdateAbilities = new List<IUpdate>();
@@ -132,5 +136,20 @@ namespace HandcraftedGames.AgentController
                     update.Update();
             }
         }
+
+        public void AddProperties(IProperties properties)
+        {
+            this.properties.Add(properties);
+        }
+
+        public T GetProperties<T>() where T : class, IProperties
+        {
+            var type = typeof(T);
+            foreach(var prop in this.properties)
+                if(prop is T)
+                    return prop as T;
+            return null;
+        }
+
     }
 }
