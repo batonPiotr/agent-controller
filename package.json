@@ -27,6 +27,21 @@
             "displayName": "Basic Setup",
             "description": "Scene with basic setup with some custom abilities.",
             "path": "Samples/BasicSetup"
+        },
+        {
+            "displayName": "ToonRTSUnits",
+            "description": "Scene with a knight character controller.",
+            "path": "Samples/ToonRTSUnits"
+        },
+        {
+            "displayName": "NavMeshAgent",
+            "description": "Scene with an agent controlled by Unity's NavMeshAgent.",
+            "path": "Samples/NavMeshAgent"
+        },
+        {
+            "displayName": "FollowObject",
+            "description": "An agent, who follows an arbitrary GameObject",
+            "path": "Samples/FollowObject"
         }
     ],
     "dependencies": {

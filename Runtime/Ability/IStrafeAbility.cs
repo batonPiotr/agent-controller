@@ -1,8 +1,8 @@
 namespace HandcraftedGames.AgentController.Abilities
 {
     using UnityEngine;
-    public interface IMoveAbility: IAbility
+    public interface IStrafeAbility: IAbility
     {
-        void SetInputVector(Vector2 input);
+        void SetInput(float value);
     }
 }

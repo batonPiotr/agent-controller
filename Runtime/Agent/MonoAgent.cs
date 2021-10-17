@@ -8,6 +8,7 @@ namespace HandcraftedGames.AgentController
     using HandcraftedGames.Utils;
     using HandcraftedGames.AgentController.Abilities.Animator;
     using HandcraftedGames.AgentController.Abilities.Rigidbody;
+    using HandcraftedGames.AgentController.Properties;
 
     [Serializable]
     public class MonoAgent : MonoBehaviour
@@ -18,9 +19,16 @@ namespace HandcraftedGames.AgentController
         [SerializeReference]
         private List<IAbility> abilities = new List<IAbility>();
 
+        [SerializeReference]
+        private List<IProperties> properties = new List<IProperties>();
+
+        public MovementProperties lol = new MovementProperties();
+
         private void Awake()
         {
             agent = new Agent(gameObject);
+            foreach(var prop in properties)
+                agent.AddProperties(prop);
             var abilitiesToEnable = abilities.Where(i => i.Enabled);
             foreach(var ability in abilities)
             {

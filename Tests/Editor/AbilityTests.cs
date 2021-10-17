@@ -11,9 +11,9 @@ namespace HandcraftedGames.AgentController.Tests
         public void TestEnablingWithoutAgent()
         {
             var ability = new SomeAbility();
-            Assert.IsFalse(ability.Enabled);
+            Assert.IsTrue(ability.Enabled);
             ability.Enable();
-            Assert.IsFalse(ability.Enabled);
+            Assert.IsTrue(ability.Enabled);
         }
         
         /// <summary>

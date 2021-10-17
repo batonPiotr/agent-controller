@@ -49,6 +49,11 @@ MonoBehaviour:
   - id: 2
   - id: 3
   - id: 4
+  - id: 5
+  properties:
+  - id: 6
+  lol:
+    MovementSpeed: 1
   references:
     version: 1
     00000000:
@@ -64,20 +69,34 @@ MonoBehaviour:
         sidewardMinValue: -1
         sidewardMaxValue: 1
         isMovingParameterName: isMoving
+        EMASize: 15
     00000002:
+      type: {class: StrafeAbility, ns: HandcraftedGames.AgentController.Abilities.Animator, asm: HandcraftedGames.AgentController}
+      data:
+        _Enabled: 1
+        strafingParameterName: strafe
+        sidewardMinValue: -1
+        sidewardMaxValue: 1
+        isStrafingParameterName: isStrafing
+        EMASize: 5
+    00000003:
       type: {class: ChangeSpeed, ns: HandcraftedGames.AgentController.Abilities.Animator, asm: HandcraftedGames.AgentController}
       data:
         _Enabled: 1
-    00000003:
+    00000004:
       type: {class: GoToAbility, ns: HandcraftedGames.AgentController.Abilities, asm: HandcraftedGames.AgentController}
       data:
         _Enabled: 1
-    00000004:
+    00000005:
       type: {class: FollowAbility, ns: HandcraftedGames.AgentController.Abilities, asm: HandcraftedGames.AgentController}
       data:
         _Enabled: 1
-        stopWhenReached: 1
+        stopWhenReached: 0
         updateTargetPositionInterval: 1
+    00000006:
+      type: {class: MovementProperties, ns: HandcraftedGames.AgentController.Properties, asm: HandcraftedGames.AgentController}
+      data:
+        MovementSpeed: 1
 --- !u!114 &756673276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +204,23 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f5fc87c2-cbe2-40e7-b9ae-a2970ccf88c5
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 756673278}
+        m_TargetAssemblyTypeName: HandcraftedGames.AgentController.MonoAgentNewInputHandler,
+          HandcraftedGames.AgentController
+        m_MethodName: OnStrafe
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a9e0636d-f91c-488b-807d-472ed8188fff
+    m_ActionName: Player/Strafe[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -203,6 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 756673274}
+  inputHandlingAbility:
+    _Enabled: 1
 --- !u!195 &6935102306721462539
 NavMeshAgent:
   m_ObjectHideFlags: 0
