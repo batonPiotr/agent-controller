@@ -1,4 +1,4 @@
-namespace HandcraftedGames.AgentController
+namespace HandcraftedGames.AgentController.Abilities
 {
     using UnityEngine;
     public interface IRotateAbility: IAbility

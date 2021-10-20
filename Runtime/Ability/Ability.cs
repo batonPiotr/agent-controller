@@ -1,14 +1,19 @@
-namespace HandcraftedGames.AgentController
+using System;
+using UnityEngine;
+
+namespace HandcraftedGames.AgentController.Abilities
 {
-    public abstract class Ability : IAbility
+    [Serializable]
+    public class Ability : IAbility
     {
+        public virtual string Name => "Unnamed Ability";
         private IAgent _Agent;
         public IAgent Agent => _Agent;
 
         protected bool _IsActive = false;
         public bool IsActive => _IsActive;
-
-        private bool _Enabled = false;
+        [SerializeField]
+        private bool _Enabled = true;
         public bool Enabled => _Enabled;
 
         public void Disable()
@@ -16,14 +21,22 @@ namespace HandcraftedGames.AgentController
             if(!Enabled)
                 return;
             _Enabled = false;
+            if(Agent == null)
+                return;
+
+            Stop();
             OnDisable();
         }
 
         public void Enable()
         {
-            if(Enabled || _Agent == null) 
+            if(Enabled)
                 return;
             _Enabled = true;
+
+            if(Agent == null)
+                return;
+                
             OnEnable();
         }
 
@@ -33,6 +46,8 @@ namespace HandcraftedGames.AgentController
         public virtual bool ShouldActiveAbilityBeStopped(IAbility activeAbility) => false;
 
         public virtual bool ShouldBlockActivatingAbility(IAbility abilityToActivate) => false;
+
+        public virtual bool ShouldStopMyselfDueToActivatingAbility(IAbility abilityThatBlocks) => false;
 
         public bool TryToAdd(IAgent agent)
         {
@@ -46,12 +61,29 @@ namespace HandcraftedGames.AgentController
             return true;
         }
 
-        protected abstract bool ValidateAgent(IAgent agent);
+        protected virtual bool ValidateAgent(IAgent agent) => true;
+        protected virtual bool ShouldBeActivated() => true;
 
-        public virtual bool TryToActivate() => !IsActive && Enabled && Agent != null;
+        public bool TryToActivate()
+        {
+            if(!IsActive && Enabled && Agent != null && ShouldBeActivated())
+            {
+                _IsActive = true;
+                return true;
+            }
+            return false;
+        }
 
-        public virtual void Stop() { }
+        public virtual void Stop() {
+            _IsActive = false;
+        }
 
         public virtual void Dispose() {}
+
+        public void DetachFromAgent()
+        {
+            Stop();
+            _Agent = null;
+        }
     }
 }

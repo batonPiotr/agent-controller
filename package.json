@@ -1,6 +1,6 @@
 {
     "name": "com.handcraftedgames.agentcontroller",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "displayName": "Agent Controller",
     "description": "An abstraction layer for controlling various characters. Useful to generalize controlling for higher abstraction layers (eg. AI)",
     "unity": "2018.4",
@@ -27,10 +27,26 @@
             "displayName": "Basic Setup",
             "description": "Scene with basic setup with some custom abilities.",
             "path": "Samples/BasicSetup"
+        },
+        {
+            "displayName": "ToonRTSUnits",
+            "description": "Scene with a knight character controller.",
+            "path": "Samples/ToonRTSUnits"
+        },
+        {
+            "displayName": "NavMeshAgent",
+            "description": "Scene with an agent controlled by Unity's NavMeshAgent.",
+            "path": "Samples/NavMeshAgent"
+        },
+        {
+            "displayName": "FollowObject",
+            "description": "An agent, who follows an arbitrary GameObject",
+            "path": "Samples/FollowObject"
         }
     ],
     "dependencies": {
       "com.unity.test-framework.performance": "2.6.0-preview",
-      "com.unity.cinemachine": "2.6.9"
+      "com.unity.cinemachine": "2.6.9",
+      "com.unity.inputsystem": "1.0.2"
     }
 }
