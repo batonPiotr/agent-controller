@@ -30,7 +30,7 @@ namespace HandcraftedGames.AgentController
             if (moveAbility == null /*|| rotateAbility == null*/)
             {
                 moveAbility = target.agent.GetAbility<IMoveAbility>();
-                changeSpeedAbility = target.agent.GetAbility<IChangeSpeed>();
+                changeSpeedAbility = target.agent.GetAbility<IChangeSpeedAbility>();
                 // rotateAbility = target.agent.GetAbility<IRotateAbility>();
             }
             else
