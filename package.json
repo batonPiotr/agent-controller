@@ -1,6 +1,6 @@
 {
     "name": "com.handcraftedgames.agentcontroller",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "displayName": "Agent Controller",
     "description": "An abstraction layer for controlling various characters. Useful to generalize controlling for higher abstraction layers (eg. AI)",
     "unity": "2018.4",
