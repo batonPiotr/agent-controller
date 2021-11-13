@@ -16,6 +16,12 @@ namespace HandcraftedGames.AgentController.Abilities
         private bool _Enabled = true;
         public bool Enabled => _Enabled;
 
+
+        public event System.Action<IAbility> OnDidActivate;
+        public event System.Action<IAbility> OnDidStop;
+        public event System.Action<IAbility> OnDidEnable;
+        public event System.Action<IAbility> OnDidDisable;
+
         public void Disable()
         {
             if(!Enabled)
@@ -26,6 +32,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
             Stop();
             OnDisable();
+            OnDidDisable?.Invoke(this);
         }
 
         public void Enable()
@@ -36,8 +43,9 @@ namespace HandcraftedGames.AgentController.Abilities
 
             if(Agent == null)
                 return;
-                
+
             OnEnable();
+            OnDidEnable?.Invoke(this);
         }
 
         protected virtual void OnEnable() {}
@@ -51,7 +59,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public bool TryToAdd(IAgent agent)
         {
-            if(Agent != null)   
+            if(Agent != null)
                 return false;
             if(agent == null)
                 return false;
@@ -69,6 +77,7 @@ namespace HandcraftedGames.AgentController.Abilities
             if(!IsActive && Enabled && Agent != null && ShouldBeActivated())
             {
                 _IsActive = true;
+                OnDidActivate?.Invoke(this);
                 return true;
             }
             return false;
@@ -76,6 +85,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public virtual void Stop() {
             _IsActive = false;
+            OnDidStop?.Invoke(this);
         }
 
         public virtual void Dispose() {}

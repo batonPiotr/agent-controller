@@ -13,6 +13,11 @@ namespace HandcraftedGames.AgentController.Abilities
 
     public interface IAbility: IDisposable
     {
+        event System.Action<IAbility> OnDidActivate;
+        event System.Action<IAbility> OnDidStop;
+        event System.Action<IAbility> OnDidEnable;
+        event System.Action<IAbility> OnDidDisable;
+
         string Name { get; }
         /// <summary>
         /// Agent this ability is added to.
