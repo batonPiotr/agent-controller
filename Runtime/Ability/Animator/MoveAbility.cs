@@ -18,7 +18,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         private float forwardMinValue;
         [SerializeField]
         private float forwardMaxValue;
-        
+
         private int forwardParameterHash;
 
 
@@ -56,7 +56,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             }
 
             var inputNormalized = (input + Vector2.one) * 0.5f;
-            
+
             lastFrameSetInputVector = Time.frameCount;
             Add(Mathf.Lerp(forwardMinValue * movementProperties.MovementSpeed, forwardMaxValue * movementProperties.MovementSpeed, inputNormalized.y), forwardValues);
             Add(Mathf.Lerp(sidewardMinValue * movementProperties.MovementSpeed, sidewardMaxValue * movementProperties.MovementSpeed, inputNormalized.x), sidewardValues);
@@ -71,7 +71,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             var isMoving = new Vector2(forwardValue, sidewardValue).sqrMagnitude > 0.001;
             animator.SetBool(isMovingHash, isMoving);
             if(!isMoving)
-                Stop();
+                Complete();
         }
 
         protected override bool ValidateAgent(IAgent agent)
@@ -82,7 +82,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             return animator != null && movementProperties != null;
         }
 
-        public override void Stop()
+        protected override void OnStop(StopReason reason)
         {
             animator.SetBool(isMovingHash, false);
             animator.SetFloat(forwardParameterHash, 0.0f);

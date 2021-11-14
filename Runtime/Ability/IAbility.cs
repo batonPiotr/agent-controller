@@ -11,6 +11,24 @@ namespace HandcraftedGames.AgentController.Abilities
         }
     }
 
+    public enum StopReason
+    {
+        /// <summary>
+        /// When something from outside interrupts the course.
+        /// </summary>
+        Interruption,
+
+        /// <summary>
+        /// When the ability is not able to do its work anymore.
+        /// </summary>
+        Failure,
+
+        /// <summary>
+        /// When the ability completes the job succesfully.
+        /// </summary>
+        Completion
+    }
+
     public interface IAbility: IDisposable
     {
         /// <summary>
@@ -19,14 +37,9 @@ namespace HandcraftedGames.AgentController.Abilities
         event System.Action<IAbility> OnDidActivate;
 
         /// <summary>
-        /// Invoked when someone stops the activity.
+        /// Invoked when ability stops with given reason.
         /// </summary>
-        event System.Action<IAbility> OnDidStop;
-
-        /// <summary>
-        /// Invoked when the ability failed or successfully completes
-        /// </summary>
-        event System.Action<IAbility, bool> OnDidFinish;
+        event System.Action<IAbility, StopReason> OnDidStop;
 
         /// <summary>
         /// Invoked when the ability will be enabled.
@@ -101,6 +114,9 @@ namespace HandcraftedGames.AgentController.Abilities
         /// </summary>
         bool TryToActivate();
 
+        /// <summary>
+        /// It will end the ability with the reason 'Interruption'
+        /// </summary>
         void Stop();
     }
 }

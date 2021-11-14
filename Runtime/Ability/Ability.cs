@@ -18,8 +18,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
 
         public event System.Action<IAbility> OnDidActivate;
-        public event System.Action<IAbility, bool> OnDidFinish;
-        public event System.Action<IAbility> OnDidStop;
+        public event System.Action<IAbility, StopReason> OnDidStop;
         public event System.Action<IAbility> OnDidEnable;
         public event System.Action<IAbility> OnDidDisable;
 
@@ -51,6 +50,8 @@ namespace HandcraftedGames.AgentController.Abilities
 
         protected virtual void OnEnable() {}
         protected virtual void OnDisable() {}
+
+        protected virtual void OnStop(StopReason reason) {}
 
         public virtual bool ShouldActiveAbilityBeStopped(IAbility activeAbility) => false;
 
@@ -84,9 +85,9 @@ namespace HandcraftedGames.AgentController.Abilities
             return false;
         }
 
-        public virtual void Stop() {
-            _IsActive = false;
-            OnDidStop?.Invoke(this);
+        public void Stop()
+        {
+            StopWithReason(StopReason.Interruption);
         }
 
         public virtual void Dispose() {}
@@ -99,18 +100,21 @@ namespace HandcraftedGames.AgentController.Abilities
 
         protected void Fail()
         {
-            if(!IsActive)
-                return;
-            Stop();
-            OnDidFinish?.Invoke(this, false);
+            StopWithReason(StopReason.Failure);
         }
 
         protected void Complete()
         {
+            StopWithReason(StopReason.Completion);
+        }
+
+        private void StopWithReason(StopReason reason)
+        {
             if(!IsActive)
                 return;
-            Stop();
-            OnDidFinish?.Invoke(this, true);
+            _IsActive = false;
+            OnStop(reason);
+            OnDidStop?.Invoke(this, reason);
         }
     }
 }
