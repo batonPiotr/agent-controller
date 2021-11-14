@@ -21,7 +21,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
                     return;
             }
             movementProperties.MovementSpeed = multiplier;
-            Stop();
+            Complete();
         }
 
         protected override bool ValidateAgent(IAgent agent)
