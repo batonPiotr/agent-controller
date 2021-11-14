@@ -13,9 +13,29 @@ namespace HandcraftedGames.AgentController.Abilities
 
     public interface IAbility: IDisposable
     {
+        /// <summary>
+        /// Invoked when someone successfully activates the ability.
+        /// </summary>
         event System.Action<IAbility> OnDidActivate;
+
+        /// <summary>
+        /// Invoked when someone stops the activity.
+        /// </summary>
         event System.Action<IAbility> OnDidStop;
+
+        /// <summary>
+        /// Invoked when the ability failed or successfully completes
+        /// </summary>
+        event System.Action<IAbility, bool> OnDidFinish;
+
+        /// <summary>
+        /// Invoked when the ability will be enabled.
+        /// </summary>
         event System.Action<IAbility> OnDidEnable;
+
+        /// <summary>
+        /// Invoked when the ability will be disabled.
+        /// </summary>
         event System.Action<IAbility> OnDidDisable;
 
         string Name { get; }

@@ -18,6 +18,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
 
         public event System.Action<IAbility> OnDidActivate;
+        public event System.Action<IAbility, bool> OnDidFinish;
         public event System.Action<IAbility> OnDidStop;
         public event System.Action<IAbility> OnDidEnable;
         public event System.Action<IAbility> OnDidDisable;
@@ -94,6 +95,22 @@ namespace HandcraftedGames.AgentController.Abilities
         {
             Stop();
             _Agent = null;
+        }
+
+        protected void Fail()
+        {
+            if(!IsActive)
+                return;
+            Stop();
+            OnDidFinish?.Invoke(this, false);
+        }
+
+        protected void Complete()
+        {
+            if(!IsActive)
+                return;
+            Stop();
+            OnDidFinish?.Invoke(this, true);
         }
     }
 }
