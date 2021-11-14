@@ -44,7 +44,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
             bool shouldMove = navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance;
             if(!shouldMove)
-                Stop();
+                Complete();
 
             var speed = Vector3.Project(navMeshAgent.desiredVelocity, Agent.GameObject.transform.forward).magnitude;
             if(speed > 0.3f)
@@ -66,16 +66,15 @@ namespace HandcraftedGames.AgentController.Abilities
 
             Debug.Log("Angle: " + angle);
             Debug.Log("Speed: " + speed);
-            
-            
+
+
             var inputVector = new Vector2(angle * negative, speed);
             moveAbility.SetInputVector(inputVector);
             navMeshAgent.nextPosition = Agent.GameObject.transform.position;
         }
 
-        public override void Stop()
+        protected override void OnStop(StopReason reason)
         {
-            base.Stop();
             navMeshAgent.isStopped = true;
             moveAbility.SetInputVector(Vector2.zero);
         }

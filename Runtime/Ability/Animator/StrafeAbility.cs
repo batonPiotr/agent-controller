@@ -53,7 +53,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             var isStrafing = Mathf.Abs(sidewardValue) > 0.01;
             animator.SetBool(isStrafingHash, isStrafing);
             if(!isStrafing)
-                Stop();
+                Complete();
         }
 
         protected override bool ValidateAgent(IAgent agent)
@@ -64,7 +64,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             return animator != null && movementProperties != null;
         }
 
-        public override void Stop()
+        protected override void OnStop(StopReason reason)
         {
             animator.SetBool(isStrafingHash, false);
             animator.SetFloat(strafingParameterHash, 0.0f);

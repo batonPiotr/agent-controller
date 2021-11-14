@@ -60,7 +60,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
             if(StopWhenReached && !goToAbility.IsActive && (target.transform.position - Agent.GameObject.transform.position).magnitude < 1.0f)
             {
-                Stop();
+                Complete();
             }
         }
 
@@ -73,7 +73,10 @@ namespace HandcraftedGames.AgentController.Abilities
             }
             if(target == null || !IsActive)
                 return;
-            TaskDispatcher.Shared.Schedule(() => {
+
+            goToAbility.OnDidStop += OnGoToStop;
+
+            currentScheduledTask = TaskDispatcher.Shared.Schedule(() => {
                 if(!target)
                     return false;
                 goToAbility.GoTo(target.transform.position);
@@ -81,16 +84,33 @@ namespace HandcraftedGames.AgentController.Abilities
             }, 0.0f, updateTargetPositionInterval);
         }
 
-        public override void Stop()
+        private void OnGoToStop(IAbility ability, StopReason reason)
         {
-            base.Stop();
+            if(!IsActive)
+                return;
+
+            if(reason != StopReason.Completion)
+            {
+                Fail();
+            }
+
+            if(StopWhenReached && (target.transform.position - Agent.GameObject.transform.position).magnitude < 1.0f)
+            {
+                Complete();
+            }
+        }
+
+        protected override void OnStop(StopReason reason)
+        {
             if(currentScheduledTask != null)
             {
                 TaskDispatcher.Shared.Stop(currentScheduledTask);
                 currentScheduledTask = null;
             }
             target = null;
-            goToAbility.Stop();
+            goToAbility.OnDidStop -= OnGoToStop;
+            if(reason != StopReason.Completion)
+                goToAbility.Stop();
         }
     }
 }
