@@ -11,11 +11,11 @@ namespace HandcraftedGames.AgentController.Tests
         public void TestEnablingWithoutAgent()
         {
             var ability = new SomeAbility();
-            Assert.IsTrue(ability.Enabled);
+            Assert.IsTrue(ability.IsEnabled);
             ability.Enable();
-            Assert.IsTrue(ability.Enabled);
+            Assert.IsTrue(ability.IsEnabled);
         }
-        
+
         /// <summary>
         /// Tests if ability is being added to a valid agent.
         /// </summary>
@@ -26,9 +26,9 @@ namespace HandcraftedGames.AgentController.Tests
             var ability = new SomeAbility();
             validAgent.AddAbility(ability);
             ability.Enable();
-            Assert.IsTrue(ability.Enabled);
+            Assert.IsTrue(ability.IsEnabled);
         }
-        
+
         /// <summary>
         /// Tests if ability is being added to a valid agent.
         /// </summary>
@@ -39,9 +39,9 @@ namespace HandcraftedGames.AgentController.Tests
             var ability = new SomeAbility();
             validAgent.AddAbility(ability);
             ability.Enable();
-            Assert.IsTrue(ability.Enabled);
+            Assert.IsTrue(ability.IsEnabled);
             ability.Disable();
-            Assert.IsFalse(ability.Enabled);
+            Assert.IsFalse(ability.IsEnabled);
         }
     }
 }

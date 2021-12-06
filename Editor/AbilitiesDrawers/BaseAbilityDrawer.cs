@@ -65,7 +65,7 @@ namespace HandcraftedGames.AgentController.Abilities
             {
                 var togglePosition = RectLayout.VerticalRect(position, 0);
                 togglePosition.x += position.width - 22.0f;
-                var value = ability.Enabled;
+                var value = ability.IsEnabled;
                 var newValue = EditorGUI.Toggle(togglePosition, enabledProperty.boolValue);
                 if(newValue != enabledProperty.boolValue)
                 {
@@ -79,7 +79,7 @@ namespace HandcraftedGames.AgentController.Abilities
                     enabledProperty.boolValue = newValue;
                 }
             }
-            
+
             foldout[ability] = EditorGUI.Foldout(RectLayout.VerticalRect(position, 0), shouldFoldout, ability.Name);
 
 

@@ -23,7 +23,11 @@ namespace HandcraftedGames.AgentController
 
         float maxValue = 1.0f;
         float delay = 0.1f;
-        
+
+        private void OnEnable()
+        {
+        }
+
         #if ENABLE_LEGACY_INPUT_MANAGER
         private void Update()
         {
@@ -36,7 +40,7 @@ namespace HandcraftedGames.AgentController
             else
             {
                 var rotationInput = 0.0f;
-                
+
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     forwardInputTween.Stop();
