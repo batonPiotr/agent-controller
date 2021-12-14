@@ -56,7 +56,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
                 Complete();
         }
 
-        protected override bool ValidateAgent(IAgent agent)
+        protected override bool ShouldBeAddedToAgent(IAgent agent)
         {
             animator = agent.GameObject.GetComponent<Animator>();
             UpdateHashes();

@@ -1,4 +1,4 @@
-namespace HandcraftedGames.AgentController
+namespace HandcraftedGames.AgentController.Abilities
 {
     using HandcraftedGames.AgentController.Abilities;
     using HandcraftedGames.Utils;
@@ -64,7 +64,7 @@ namespace HandcraftedGames.AgentController
                 return;
             lastStrafeValue = (float)context.ReadValueAsObject();
         }
-        
+
         private void Update()
         {
             if (moveAbility == null /*|| rotateAbility == null*/)
@@ -83,9 +83,9 @@ namespace HandcraftedGames.AgentController
                     this.target.agent.AddAbility(inputHandlingAbility);
                 }
 
-                if(!inputHandlingAbility.IsActive && !inputHandlingAbility.TryToActivate())
+                if(!inputHandlingAbility.IsActive && !((IAbility)inputHandlingAbility).TryToActivate())
                     return;
-                
+
                 moveAbility.SetInputVector(lastInputVector);
                 strafeAbility.SetInput(lastStrafeValue);
             }

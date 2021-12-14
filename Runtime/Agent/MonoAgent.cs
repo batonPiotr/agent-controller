@@ -29,7 +29,7 @@ namespace HandcraftedGames.AgentController
             agent = new Agent(gameObject);
             foreach(var prop in properties)
                 agent.AddProperties(prop);
-            var abilitiesToEnable = abilities.Where(i => i.Enabled);
+            var abilitiesToEnable = abilities.Where(i => i.IsEnabled);
             foreach(var ability in abilities)
             {
                 if(!agent.AddAbility(ability, abilitiesToEnable.Contains(ability)))

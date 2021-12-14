@@ -29,6 +29,8 @@ namespace HandcraftedGames.AgentController.Abilities
         Completion
     }
 
+    internal interface IInternal {}
+
     public interface IAbility: IDisposable
     {
         /// <summary>
@@ -65,7 +67,7 @@ namespace HandcraftedGames.AgentController.Abilities
         /// <summary>
         /// Tells if this ability can be activated
         /// </summary>
-        bool Enabled { get; }
+        bool IsEnabled { get; }
 
         /// <summary>
         /// Turns on the ability. It does not activate it, it just allows to run.
@@ -102,9 +104,12 @@ namespace HandcraftedGames.AgentController.Abilities
         /// Called when this ability is being added to the agent. It analyzes if the agent contains required components.
         /// </summary>
         /// <param name="agent">Agent to validate</param>
-        bool TryToAdd(IAgent agent);
+        internal bool TryToAdd(IAgent agent);
 
-        void DetachFromAgent();
+        /// <summary>
+        /// It detaches the ability from the agent. It shouldn't be called directly, only through Agent.RemoveAbility(IAbility ability)
+        /// </summary>
+        internal void DetachFromAgent();
 
         /// <summary>
         /// Called if someone wants to activate this ability through agent. This ability has to meet following minimal requirements in order to be activated:
@@ -112,7 +117,7 @@ namespace HandcraftedGames.AgentController.Abilities
         /// - It must not be activated.
         /// - It must be assigned to an agent.
         /// </summary>
-        bool TryToActivate();
+        internal bool TryToActivate();
 
         /// <summary>
         /// It will end the ability with the reason 'Interruption'

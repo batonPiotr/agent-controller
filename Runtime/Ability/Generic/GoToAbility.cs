@@ -12,7 +12,7 @@ namespace HandcraftedGames.AgentController.Abilities
         private IMoveAbility moveAbility;
         private NavMeshAgent navMeshAgent;
 
-        override protected bool ValidateAgent(IAgent agent)
+        override protected bool ShouldBeAddedToAgent(IAgent agent)
         {
             moveAbility = agent.GetAbility<IMoveAbility>();
             navMeshAgent = agent.GameObject.GetComponent<NavMeshAgent>();

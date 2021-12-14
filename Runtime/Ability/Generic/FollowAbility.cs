@@ -33,7 +33,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         private object currentScheduledTask = null;
 
-        override protected bool ValidateAgent(IAgent agent)
+        override protected bool ShouldBeAddedToAgent(IAgent agent)
         {
             goToAbility = agent.GetAbility<IGoToAbility>();
 

@@ -13,7 +13,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
 
         public void SetSpeedMultiplier(float multiplier)
         {
-            if(!Enabled)
+            if(!IsEnabled)
                 return;
             if(!IsActive)
             {
@@ -24,7 +24,7 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             Complete();
         }
 
-        protected override bool ValidateAgent(IAgent agent)
+        protected override bool ShouldBeAddedToAgent(IAgent agent)
         {
             movementProperties = agent.GetProperties<MovementProperties>();
             if(movementProperties == null)

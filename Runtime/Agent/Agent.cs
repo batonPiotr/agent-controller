@@ -49,7 +49,7 @@ namespace HandcraftedGames.AgentController
 
             if(enableOnAdd)
                 ability.Enable();
-                
+
             return true;
         }
 
@@ -77,7 +77,7 @@ namespace HandcraftedGames.AgentController
             if(!Abilities.Contains(ability))
                 return false;
 
-            if(!ability.Enabled)
+            if(!ability.IsEnabled)
                 return false;
 
             // Check if some running ability wants to prevent activating this ability
@@ -123,7 +123,7 @@ namespace HandcraftedGames.AgentController
         {
             foreach(var fixedUpdate in FixedUpdateAbilities)
             {
-                if(((IAbility)fixedUpdate).Enabled)
+                if(((IAbility)fixedUpdate).IsEnabled)
                     fixedUpdate.FixedUpdate();
             }
         }
@@ -132,7 +132,7 @@ namespace HandcraftedGames.AgentController
         {
             foreach(var update in UpdateAbilities)
             {
-                if(((IAbility)update).Enabled)
+                if(((IAbility)update).IsEnabled)
                     update.Update();
             }
         }

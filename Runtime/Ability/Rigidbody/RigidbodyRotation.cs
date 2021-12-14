@@ -10,7 +10,7 @@ namespace HandcraftedGames.AgentController.Abilities.Rigidbody
         private float rotationInput;
         private Rigidbody rigidbody;
 
-        protected override bool ValidateAgent(IAgent agent)
+        protected override bool ShouldBeAddedToAgent(IAgent agent)
         {
             rigidbody = agent.GameObject.GetComponent<Rigidbody>();
             if(rigidbody == null)
