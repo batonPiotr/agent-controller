@@ -169,7 +169,7 @@ namespace HandcraftedGames.AgentController.Tests
 
     class SomeAbility : Ability
     {
-        protected override bool ValidateAgent(IAgent agent)
+        protected bool ValidateAgent(IAgent agent)
         {
             return !(agent is InvalidAgent);
         }

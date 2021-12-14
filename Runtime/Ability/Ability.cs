@@ -14,7 +14,7 @@ namespace HandcraftedGames.AgentController.Abilities
         public bool IsActive => _IsActive;
         [SerializeField]
         private bool _Enabled = true;
-        public bool Enabled => _Enabled;
+        public bool IsEnabled => _Enabled;
 
 
         public event System.Action<IAbility> OnDidActivate;
@@ -24,7 +24,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public void Disable()
         {
-            if(!Enabled)
+            if(!IsEnabled)
                 return;
             _Enabled = false;
             if(Agent == null)
@@ -37,7 +37,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public void Enable()
         {
-            if(Enabled)
+            if(IsEnabled)
                 return;
             _Enabled = true;
 
@@ -59,24 +59,24 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public virtual bool ShouldStopMyselfDueToActivatingAbility(IAbility abilityThatBlocks) => false;
 
-        public bool TryToAdd(IAgent agent)
+        protected virtual bool ShouldBeAddedToAgent(IAgent agent) => true;
+        protected virtual bool ShouldBeActivated() => true;
+
+        bool IAbility.TryToAdd(IAgent agent)
         {
             if(Agent != null)
                 return false;
             if(agent == null)
                 return false;
-            if(!ValidateAgent(agent))
+            if(!ShouldBeAddedToAgent(agent))
                 return false;
             _Agent = agent;
             return true;
         }
 
-        protected virtual bool ValidateAgent(IAgent agent) => true;
-        protected virtual bool ShouldBeActivated() => true;
-
-        public bool TryToActivate()
+        bool IAbility.TryToActivate()
         {
-            if(!IsActive && Enabled && Agent != null && ShouldBeActivated())
+            if(!IsActive && IsEnabled && Agent != null && ShouldBeActivated())
             {
                 _IsActive = true;
                 OnDidActivate?.Invoke(this);
@@ -92,7 +92,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public virtual void Dispose() {}
 
-        public void DetachFromAgent()
+        void IAbility.DetachFromAgent()
         {
             Stop();
             _Agent = null;
