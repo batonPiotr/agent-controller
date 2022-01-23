@@ -1,8 +1,9 @@
+
+using System;
+using UnityEngine;
+using UnityEngine.AI;
 namespace HandcraftedGames.AgentController.Abilities
 {
-    using System;
-    using UnityEngine;
-    using UnityEngine.AI;
 
     [Serializable]
     [Ability("Generic/Go To")]
@@ -12,7 +13,7 @@ namespace HandcraftedGames.AgentController.Abilities
         private IMoveAbility moveAbility;
         private NavMeshAgent navMeshAgent;
 
-        override protected bool ShouldBeAddedToAgent(IAgent agent)
+        override protected bool ShouldBeAddedToAgent(IAgentController agent)
         {
             moveAbility = agent.GetAbility<IMoveAbility>();
             navMeshAgent = agent.GameObject.GetComponent<NavMeshAgent>();
@@ -29,12 +30,15 @@ namespace HandcraftedGames.AgentController.Abilities
 
             return moveAbility != null && navMeshAgent != null;
         }
-        public void GoTo(Vector3 target)
+        public bool GoTo(Vector3 target)
         {
             if(!IsActive && !Agent.ActivateAbility(this))
-                return;
+                return false;
+            // navMeshAgent.LogPathStatus("Before activating");
             navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(target);
+            return true;
+            // navMeshAgent.LogPathStatus("After activating");
         }
 
         public void Update()
@@ -43,7 +47,8 @@ namespace HandcraftedGames.AgentController.Abilities
                 return;
 
             bool shouldMove = navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance;
-            if(!shouldMove)
+            // navMeshAgent.LogPathStatus("Update");
+            if(!shouldMove && !navMeshAgent.pathPending)
                 Complete();
 
             var speed = Vector3.Project(navMeshAgent.desiredVelocity, Agent.GameObject.transform.forward).magnitude;
@@ -64,8 +69,8 @@ namespace HandcraftedGames.AgentController.Abilities
 
             angle = Mathf.Clamp(angle, 0.0f, 45.0f) / 45.0f;
 
-            Debug.Log("Angle: " + angle);
-            Debug.Log("Speed: " + speed);
+            // Debug.Log("Angle: " + angle);
+            // Debug.Log("Speed: " + speed);
 
 
             var inputVector = new Vector2(angle * negative, speed);
@@ -75,8 +80,20 @@ namespace HandcraftedGames.AgentController.Abilities
 
         protected override void OnStop(StopReason reason)
         {
-            navMeshAgent.isStopped = true;
+            if(navMeshAgent.isActiveAndEnabled)
+                navMeshAgent.isStopped = true;
             moveAbility.SetInputVector(Vector2.zero);
         }
+    }
+}
+
+
+static class NavMeshAgentExtension
+{
+    public static void LogPathStatus(this NavMeshAgent agent, string Prefix)
+    {
+        Debug.Log(Prefix + ": pathPending " + agent.pathPending);
+        Debug.Log(Prefix + ": isPathStale " + agent.isPathStale);
+        Debug.Log(Prefix + ": pathStatus " + agent.pathStatus);
     }
 }

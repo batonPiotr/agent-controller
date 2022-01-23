@@ -11,20 +11,21 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
         public override string Name => "Change Speed Ability";
         private MovementProperties movementProperties;
 
-        public void SetSpeedMultiplier(float multiplier)
+        public bool SetSpeedMultiplier(float multiplier)
         {
             if(!IsEnabled)
-                return;
+                return false;
             if(!IsActive)
             {
                 if(!Agent.ActivateAbility(this))
-                    return;
+                    return false;
             }
             movementProperties.MovementSpeed = multiplier;
             Complete();
+            return true;
         }
 
-        protected override bool ShouldBeAddedToAgent(IAgent agent)
+        protected override bool ShouldBeAddedToAgent(IAgentController agent)
         {
             movementProperties = agent.GetProperties<MovementProperties>();
             if(movementProperties == null)

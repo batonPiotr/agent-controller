@@ -33,7 +33,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
         private object currentScheduledTask = null;
 
-        override protected bool ShouldBeAddedToAgent(IAgent agent)
+        override protected bool ShouldBeAddedToAgent(IAgentController agent)
         {
             goToAbility = agent.GetAbility<IGoToAbility>();
 
@@ -43,14 +43,15 @@ namespace HandcraftedGames.AgentController.Abilities
             return goToAbility != null;
         }
 
-        public void Follow(GameObject target)
+        public bool Follow(GameObject target)
         {
             if(!IsActive && !Agent.ActivateAbility(this))
-                return;
+                return false;
 
             this.target = target;
 
             ScheduleTaskIfNeeded();
+            return true;
         }
 
         public void FixedUpdate()

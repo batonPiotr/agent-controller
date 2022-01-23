@@ -7,16 +7,16 @@ namespace HandcraftedGames.AgentController.Samples
 {
     public class NavMeshAgentSample : MonoBehaviour
     {
-        public MonoAgent agent;
+        public MonoAgentController agent;
         public Transform goTo;
 
         private IGoToAbility goToAbility;
-        
+
         void Update()
         {
             if(goToAbility == null)
             {
-                goToAbility = agent.agent.GetAbility<IGoToAbility>();
+                goToAbility = agent.GetAbility<IGoToAbility>();
                 goToAbility.GoTo(goTo.transform.position);
             }
         }

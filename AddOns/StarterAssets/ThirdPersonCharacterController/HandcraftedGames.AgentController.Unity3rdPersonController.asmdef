@@ -1,9 +1,9 @@
 {
-    "name": "HandcraftedGames.AgentController",
+    "name": "HandcraftedGames.AgentController.Unity3rdPersonController",
     "rootNamespace": "",
     "references": [
-        "Unity.InputSystem",
-        "HandcraftedGames.Common"
+        "GUID:80078368a6bc54f06897f6a51d6aa526",
+        "GUID:616c13721c31e4fb29e641bc177de2a0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,7 +11,9 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "ENABLE_HG_ADDON_UNITY_TPP_CHARACTER_CONTROLLER"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

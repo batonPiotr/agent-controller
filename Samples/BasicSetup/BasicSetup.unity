@@ -1070,29 +1070,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25e40ac6d8b2448298b4de9d5775984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent:
-    id: 0
   abilities:
+  - id: 0
   - id: 1
   - id: 2
+  properties:
   - id: 3
   references:
     version: 1
     00000000:
-      type: {class: , ns: , asm: }
-    00000001:
       type: {class: RigidbodyMovement, ns: HandcraftedGames.AgentController.Abilities.Rigidbody, asm: HandcraftedGames.AgentController}
       data:
         _Enabled: 1
         speedMultiplier: 1
-    00000002:
+    00000001:
       type: {class: RigidbodyRotation, ns: HandcraftedGames.AgentController.Abilities.Rigidbody, asm: HandcraftedGames.AgentController}
       data:
         _Enabled: 1
-    00000003:
+    00000002:
       type: {class: ChangeSpeed, ns: HandcraftedGames.AgentController.Abilities.Animator, asm: HandcraftedGames.AgentController}
       data:
         _Enabled: 1
+    00000003:
+      type: {class: MovementProperties, ns: HandcraftedGames.AgentController.Properties, asm: HandcraftedGames.AgentController}
+      data:
+        MovementSpeed: 1
 --- !u!114 &444190024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,6 +1202,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f5fc87c2-cbe2-40e7-b9ae-a2970ccf88c5
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9e0636d-f91c-488b-807d-472ed8188fff
+    m_ActionName: Player/Strafe[/Keyboard/q,/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1218,6 +1224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 444190023}
+  inputHandlingAbility:
+    _Enabled: 1
 --- !u!1 &526318214
 GameObject:
   m_ObjectHideFlags: 0

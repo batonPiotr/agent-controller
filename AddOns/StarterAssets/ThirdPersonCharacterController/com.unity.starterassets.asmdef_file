@@ -1,9 +1,8 @@
 {
-    "name": "HandcraftedGames.AgentController",
+    "name": "com.unity.starterassets",
     "rootNamespace": "",
     "references": [
-        "Unity.InputSystem",
-        "HandcraftedGames.Common"
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

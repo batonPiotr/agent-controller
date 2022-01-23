@@ -3,6 +3,6 @@ namespace HandcraftedGames.AgentController.Abilities
     using UnityEngine;
     public interface IGoToAbility: IAbility
     {
-        void GoTo(Vector3 target);
+        bool GoTo(Vector3 target);
     }
 }

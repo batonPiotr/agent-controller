@@ -7,8 +7,8 @@ namespace HandcraftedGames.AgentController.Abilities
     public class Ability : IAbility
     {
         public virtual string Name => "Unnamed Ability";
-        private IAgent _Agent;
-        public IAgent Agent => _Agent;
+        private IAgentController _Agent;
+        public IAgentController Agent => _Agent;
 
         protected bool _IsActive = false;
         public bool IsActive => _IsActive;
@@ -59,10 +59,10 @@ namespace HandcraftedGames.AgentController.Abilities
 
         public virtual bool ShouldStopMyselfDueToActivatingAbility(IAbility abilityThatBlocks) => false;
 
-        protected virtual bool ShouldBeAddedToAgent(IAgent agent) => true;
+        protected virtual bool ShouldBeAddedToAgent(IAgentController agent) => true;
         protected virtual bool ShouldBeActivated() => true;
 
-        bool IAbility.TryToAdd(IAgent agent)
+        bool IAbility.TryToAdd(IAgentController agent)
         {
             if(Agent != null)
                 return false;

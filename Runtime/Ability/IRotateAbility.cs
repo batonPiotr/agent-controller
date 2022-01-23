@@ -3,6 +3,6 @@ namespace HandcraftedGames.AgentController.Abilities
     using UnityEngine;
     public interface IRotateAbility: IAbility
     {
-        void SetRotationInput(float rotationInput);
+        bool SetRotationInput(float rotationInput);
     }
 }

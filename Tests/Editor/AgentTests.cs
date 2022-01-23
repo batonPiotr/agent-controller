@@ -157,19 +157,19 @@ namespace HandcraftedGames.AgentController.Tests
 
     }
 
-    class InvalidAgent : Agent
+    class InvalidAgent : AgentController
     {
         public InvalidAgent(): base(null) {}
     }
 
-    class ValidAgent : Agent
+    class ValidAgent : AgentController
     {
         public ValidAgent(): base(null) {}
     }
 
     class SomeAbility : Ability
     {
-        protected bool ValidateAgent(IAgent agent)
+        protected bool ValidateAgent(IAgentController agent)
         {
             return !(agent is InvalidAgent);
         }

@@ -8,7 +8,7 @@ namespace HandcraftedGames.AgentController
     using HandcraftedGames.AgentController.Properties;
 
     [Serializable]
-    public class Agent : IAgent
+    public class AgentController : IAgentController
     {
         private GameObject gameObject;
         public GameObject GameObject => gameObject;
@@ -24,9 +24,9 @@ namespace HandcraftedGames.AgentController
         private List<IFixedUpdate> FixedUpdateAbilities = new List<IFixedUpdate>();
         private List<IUpdate> UpdateAbilities = new List<IUpdate>();
 
-        public event Action<IAgent> OnDestroy;
+        public event Action<IAgentController> OnDestroy;
 
-        public Agent(GameObject gameObject)
+        public AgentController(GameObject gameObject)
         {
             this.gameObject = gameObject;
         }

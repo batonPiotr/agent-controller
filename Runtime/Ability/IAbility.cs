@@ -57,7 +57,7 @@ namespace HandcraftedGames.AgentController.Abilities
         /// <summary>
         /// Agent this ability is added to.
         /// </summary>
-        IAgent Agent { get; }
+        IAgentController Agent { get; }
 
         /// <summary>
         /// Tells if ability is currently running
@@ -104,7 +104,7 @@ namespace HandcraftedGames.AgentController.Abilities
         /// Called when this ability is being added to the agent. It analyzes if the agent contains required components.
         /// </summary>
         /// <param name="agent">Agent to validate</param>
-        internal bool TryToAdd(IAgent agent);
+        internal bool TryToAdd(IAgentController agent);
 
         /// <summary>
         /// It detaches the ability from the agent. It shouldn't be called directly, only through Agent.RemoveAbility(IAbility ability)

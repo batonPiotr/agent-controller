@@ -5,9 +5,9 @@ namespace HandcraftedGames.AgentController
     using HandcraftedGames.AgentController.Abilities;
     using HandcraftedGames.AgentController.Properties;
     using UnityEngine;
-    public interface IAgent: IDisposable, IFixedUpdate, IUpdate
+    public interface IAgentController: IDisposable, IFixedUpdate, IUpdate
     {
-        event System.Action<IAgent> OnDestroy;
+        event System.Action<IAgentController> OnDestroy;
 
         GameObject GameObject { get; }
 
@@ -22,7 +22,7 @@ namespace HandcraftedGames.AgentController
 
         /// <summary>
         /// Tries to activate the ability. It will ask other active abilities if this shouldn't be blocked.
-        /// 
+        ///
         /// This ability has to meet following minimal requirements in order to be activated:
         /// - It must be enabled. All abilities are disabled upon creation
         /// - It must not be activated.

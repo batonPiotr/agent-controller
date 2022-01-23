@@ -11,10 +11,10 @@ using HandcraftedGames.AgentController.Properties;
 
 namespace HandcraftedGames.AgentController
 {
-    [CustomEditor(typeof(MonoAgent))]
+    [CustomEditor(typeof(MonoAgentController))]
     public class MonoAgentEditor: Editor
     {
-        MonoAgent targetAgent;
+        MonoAgentController targetAgent;
         SerializedProperty abilities;
         List<IAbility> abilitiesList;
         SerializedProperty properties;
@@ -25,10 +25,10 @@ namespace HandcraftedGames.AgentController
 
         IEnumerable<Type> typesWithAbilityAttribute;
         IEnumerable<Type> typesWithPropertiesAttribute;
-        
+
         void OnEnable()
         {
-            targetAgent = target as MonoAgent;
+            targetAgent = target as MonoAgentController;
 
             abilities = serializedObject.FindProperty("abilities");
             abilitiesList = abilities.GetValue() as List<IAbility>;
@@ -36,8 +36,8 @@ namespace HandcraftedGames.AgentController
             properties = serializedObject.FindProperty("properties");
             propertiesList = properties.GetValue() as List<IProperties>;
 
-            typesWithAbilityAttribute = GetTypesWithHelpAttribute<AbilityAttribute>(Assembly.GetAssembly(typeof(IAbility)));
-            typesWithPropertiesAttribute = GetTypesWithHelpAttribute<PropertiesAttribute>(Assembly.GetAssembly(typeof(IProperties)));
+            typesWithAbilityAttribute = GetTypesWithHelpAttribute<AbilityAttribute>();
+            typesWithPropertiesAttribute = GetTypesWithHelpAttribute<PropertiesAttribute>();
 
             ReorderableAbilitiesList = new ReorderableList(serializedObject, abilities, true, true, true, true);
             ReorderableAbilitiesList.drawElementCallback = AbilitiesDrawListItems;
@@ -52,13 +52,16 @@ namespace HandcraftedGames.AgentController
             ReorderablePropertiesList.onAddDropdownCallback = PropertiesOnAddDropDownCallback;
         }
 
-        static IEnumerable<Type> GetTypesWithHelpAttribute<AttributeType>(Assembly assembly) where AttributeType: System.Attribute
+        static IEnumerable<Type> GetTypesWithHelpAttribute<AttributeType>() where AttributeType: System.Attribute
         {
-            foreach(Type type in assembly.GetTypes())
+            foreach(var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (type.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                foreach(Type type in assembly.GetTypes())
                 {
-                    yield return type;
+                    if (type.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+                    {
+                        yield return type;
+                    }
                 }
             }
         }
@@ -85,7 +88,7 @@ namespace HandcraftedGames.AgentController
                     continue;
 
                 menu.AddItem(new GUIContent(attribute.EditorItemName), false, () => {
-                    
+
                     var instance = Activator.CreateInstance(t) as IAbility;
                     var l = abilitiesList;
                     l.Add(instance);
@@ -112,11 +115,11 @@ namespace HandcraftedGames.AgentController
             string name = "Abilities";
             EditorGUI.LabelField(rect, name);
         }
-            
+
         #endregion
 
         #region Properties Reordable List
-            
+
 
         float PropertiesElementHeight(int index)
         {
@@ -138,7 +141,7 @@ namespace HandcraftedGames.AgentController
                     continue;
 
                 menu.AddItem(new GUIContent(attribute.EditorItemName), false, () => {
-                    
+
                     var instance = Activator.CreateInstance(t) as IProperties;
                     var l = propertiesList;
                     l.Add(instance);
@@ -170,39 +173,47 @@ namespace HandcraftedGames.AgentController
         {
             serializedObject.Update();
 
-            // EditorGUILayout.PropertyField(properties);
-
             ReorderableAbilitiesList.DoLayoutList();
             var typesCount = new Dictionary<Type, int>();
-            foreach(var ability in abilitiesList)
+
+            if(abilitiesList != null)
             {
-                if(!typesCount.ContainsKey(ability.GetType()))
-                    typesCount[ability.GetType()] = 0;
-                typesCount[ability.GetType()] += 1;
-            }
-            foreach(var ability in typesCount)
-            {
-                if(ability.Value > 1)
+                foreach(var ability in abilitiesList)
                 {
-                    var foundInstance = abilitiesList.Find(a => a.GetType() == ability.Key);
-                    EditorGUILayout.HelpBox("There are duplicates of " + foundInstance.Name, MessageType.Error);
+                    if(ability == null)
+                        continue;
+                    Debug.Log(" Inspecting: " + ability.GetType());
+                    if(!typesCount.ContainsKey(ability.GetType()))
+                        typesCount[ability.GetType()] = 0;
+                    typesCount[ability.GetType()] += 1;
+                }
+                foreach(var ability in typesCount)
+                {
+                    if(ability.Value > 1)
+                    {
+                        var foundInstance = abilitiesList.Find(a => a.GetType() == ability.Key);
+                        EditorGUILayout.HelpBox("There are duplicates of " + foundInstance.Name, MessageType.Error);
+                    }
                 }
             }
 
             ReorderablePropertiesList.DoLayoutList();
             typesCount = new Dictionary<Type, int>();
-            foreach(var property in propertiesList)
+            if(propertiesList != null)
             {
-                if(!typesCount.ContainsKey(property.GetType()))
-                    typesCount[property.GetType()] = 0;
-                typesCount[property.GetType()] += 1;
-            }
-            foreach(var property in typesCount)
-            {
-                if(property.Value > 1)
+                foreach(var property in propertiesList)
                 {
-                    var foundInstance = propertiesList.Find(a => a.GetType() == property.Key);
-                    EditorGUILayout.HelpBox("There are duplicates of " + foundInstance.Name, MessageType.Error);
+                    if(!typesCount.ContainsKey(property.GetType()))
+                        typesCount[property.GetType()] = 0;
+                    typesCount[property.GetType()] += 1;
+                }
+                foreach(var property in typesCount)
+                {
+                    if(property.Value > 1)
+                    {
+                        var foundInstance = propertiesList.Find(a => a.GetType() == property.Key);
+                        EditorGUILayout.HelpBox("There are duplicates of " + foundInstance.Name, MessageType.Error);
+                    }
                 }
             }
             serializedObject.ApplyModifiedProperties();

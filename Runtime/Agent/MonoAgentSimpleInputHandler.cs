@@ -7,7 +7,7 @@ namespace HandcraftedGames.AgentController
 
     public class MonoAgentSimpleInputHandler: MonoBehaviour
     {
-        public MonoAgent target;
+        public MonoAgentController target;
 
         public IMoveAbility moveAbility;
         public IRotateAbility rotateAbility;

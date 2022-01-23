@@ -9,7 +9,7 @@ namespace HandcraftedGames.AgentController.Abilities
 
     public class MonoAgentNewInputHandler: MonoBehaviour
     {
-        public MonoAgent target;
+        public MonoAgentController target;
 
         public IMoveAbility moveAbility;
         public IStrafeAbility strafeAbility;
@@ -69,25 +69,26 @@ namespace HandcraftedGames.AgentController.Abilities
         {
             if (moveAbility == null /*|| rotateAbility == null*/)
             {
-                moveAbility = target.agent.GetAbility<IMoveAbility>();
-                changeSpeedAbility = target.agent.GetAbility<IChangeSpeedAbility>();
-                rotateAbility = target.agent.GetAbility<IRotateAbility>();
-                strafeAbility = target.agent.GetAbility<IStrafeAbility>();
+                moveAbility = target.GetAbility<IMoveAbility>();
+                changeSpeedAbility = target.GetAbility<IChangeSpeedAbility>();
+                rotateAbility = target.GetAbility<IRotateAbility>();
+                strafeAbility = target.GetAbility<IStrafeAbility>();
             }
             else
             {
-                if(inputHandlingAbility.Agent != this.target.agent)
+                if(inputHandlingAbility.Agent != this.target)
                 {
                     if(inputHandlingAbility.Agent != null)
                         inputHandlingAbility.Agent.RemoveAbility(inputHandlingAbility);
-                    this.target.agent.AddAbility(inputHandlingAbility);
+                    this.target.AddAbility(inputHandlingAbility);
                 }
 
                 if(!inputHandlingAbility.IsActive && !((IAbility)inputHandlingAbility).TryToActivate())
                     return;
 
                 moveAbility.SetInputVector(lastInputVector);
-                strafeAbility.SetInput(lastStrafeValue);
+                if(strafeAbility != null)
+                    strafeAbility.SetInput(lastStrafeValue);
             }
         }
         #endif

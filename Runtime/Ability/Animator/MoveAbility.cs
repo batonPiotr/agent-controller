@@ -47,12 +47,12 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
 
         }
 
-        public void SetInputVector(Vector2 input)
+        public bool SetInputVector(Vector2 input)
         {
             if(!IsActive && !Agent.ActivateAbility(this))
             {
                 Debug.LogWarning("Deactivate " + this);
-                return;
+                return false;
             }
 
             var inputNormalized = (input + Vector2.one) * 0.5f;
@@ -72,9 +72,10 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             animator.SetBool(isMovingHash, isMoving);
             if(!isMoving)
                 Complete();
+            return true;
         }
 
-        protected override bool ShouldBeAddedToAgent(IAgent agent)
+        protected override bool ShouldBeAddedToAgent(IAgentController agent)
         {
             animator = agent.GameObject.GetComponent<Animator>();
             UpdateHashes();

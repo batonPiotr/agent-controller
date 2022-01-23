@@ -35,12 +35,12 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
 
         }
 
-        public void SetInput(float value)
+        public bool SetInput(float value)
         {
             if(!IsActive && !Agent.ActivateAbility(this))
             {
                 Debug.LogWarning("Deactivate " + this);
-                return;
+                return false;
             }
 
             var inputNormalized = (value + 1.0f) * 0.5f;
@@ -54,9 +54,10 @@ namespace HandcraftedGames.AgentController.Abilities.Animator
             animator.SetBool(isStrafingHash, isStrafing);
             if(!isStrafing)
                 Complete();
+            return true;
         }
 
-        protected override bool ShouldBeAddedToAgent(IAgent agent)
+        protected override bool ShouldBeAddedToAgent(IAgentController agent)
         {
             animator = agent.GameObject.GetComponent<Animator>();
             UpdateHashes();

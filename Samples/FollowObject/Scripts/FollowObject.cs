@@ -8,15 +8,15 @@ namespace HandcraftedGames.AgentController.Samples
 {
     public class FollowObject : MonoBehaviour
     {
-        public MonoAgent agent;
+        public MonoAgentController agent;
         public GameObject objectToFollow;
         private IFollowAbility followAbility;
-        
+
         void Update()
         {
             if(followAbility == null)
             {
-                followAbility = agent.agent.GetAbility<IFollowAbility>();
+                followAbility = agent.GetAbility<IFollowAbility>();
                 if(followAbility == null)
                 {
                     Debug.LogError("Couldn't find IFollowAbility in the agent!");

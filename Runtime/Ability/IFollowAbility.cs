@@ -7,7 +7,7 @@ namespace HandcraftedGames.AgentController.Abilities
         /// Should the agent stop once reached the target?
         /// </summary>
         bool StopWhenReached { get; set; }
-        
+
         /// <summary>
         /// Interval in seconds in which the position of the target will be obtained.
         /// </summary>
@@ -15,6 +15,6 @@ namespace HandcraftedGames.AgentController.Abilities
 
         GameObject Target { get; }
 
-        void Follow(GameObject target);
+        bool Follow(GameObject target);
     }
 }
